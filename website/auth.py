@@ -1,4 +1,4 @@
-from flask import Blueprint
+from flask import Blueprint,render_template
 
 # https://flask.palletsprojects.com/en/2.0.x/tutorial/views/
 auth = Blueprint('auth', __name__, url_prefix='/')
@@ -6,7 +6,7 @@ auth = Blueprint('auth', __name__, url_prefix='/')
 
 @auth.route('/login')
 def login():
-    return '<h1>Login</h1>'
+    return render_template("login.html",)
 
 
 @auth.route('/logout')
@@ -16,4 +16,4 @@ def logout():
 
 @auth.route('/sign-up')
 def sign_up():
-    return '<h1>Sign up</h1>'
+    return render_template("sign_up.html")
