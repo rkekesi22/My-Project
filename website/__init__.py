@@ -13,5 +13,12 @@ def create_app():
     # The secret key is needed to keep the client-side sessions secure.
     app.secret_key = 'yhGT3ylGryGTCasbc7yoZQ'
 
+    from .views import views
+    from .auth import auth
+
+    # Registering Blueprints
+    app.register_blueprint(views)
+    app.register_blueprint(auth)
+
     return app
 
