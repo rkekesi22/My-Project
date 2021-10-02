@@ -26,3 +26,9 @@
     background: #ad7ecc !important;
     transition-duration: 0.5s; 
 }
+
+@media (max-width: 1000px){
+    .signup-form{
+        max-width: 100%;
+    }
+}
