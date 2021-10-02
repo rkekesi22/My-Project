@@ -1,19 +1,27 @@
 *{
     margin: 0;
     padding: 0;
-    font-family: 'Ubuntu', sans-serif;;
+    font-family: 'Ubuntu', sans-serif;
 }
 
-.menu-bar{
-    /* https://cssgradient.io/ */
-    background-image: linear-gradient(59deg, rgba(173,126,204,1) 21%, rgba(238,238,238,1) 81%, rgba(255,255,255,1) 100%);
+body{
+    background: linear-gradient(59deg, rgba(173,126,204,1) 21%, rgba(238,238,238,1) 81%, rgba(255,255,255,1) 100%);
+    background-attachment: fixed;
 }
+
+/* .menu-bar{
+    https://cssgradient.io/
+    background-image: linear-gradient(59deg, rgba(173,126,204,1) 21%, rgba(238,238,238,1) 81%, rgba(255,255,255,1) 100%);
+} */
 
 .navbar-brand{
     font-size: 16px;
     font-weight: bold;
     margin-top: 5px;
     margin-left: 20px;
+    padding: 5px;
+    border: 1px solid black;
+    border-radius: 50px 50px 50px 50px;
     
 }
 
@@ -38,4 +46,5 @@
         border-bottom: none!important;
     }
 }
+
 

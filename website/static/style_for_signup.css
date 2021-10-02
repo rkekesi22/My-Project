@@ -1,0 +1,28 @@
+.signup-form{
+    width: 600px;
+    margin: 40px auto;
+}
+
+.signup-form form{
+    background: #fff;
+    border-radius: 10px;
+    margin-bottom: 15px;
+    box-shadow: 12px 15px 5px rgba(0,0,0, 0.5);
+    padding: 50px;
+    color: rgb(121, 121, 121);
+}
+
+.signup-form .form-group{
+    margin-bottom: 20px;
+}
+
+.signup-form .btn{
+    background: #eeeeee;
+    border:none;
+    /* min-width: 140px; */
+}
+
+.signup-form .btn:hover, .signup-form .btn:focus{
+    background: #ad7ecc !important;
+    transition-duration: 0.5s; 
+}
