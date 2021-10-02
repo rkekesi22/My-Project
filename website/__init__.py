@@ -1,46 +1,21 @@
 from flask import Flask
-from flask_sqlalchemy import SQLAlchemy
-from os import path
-from flask_login import LoginManager
-
-db = SQLAlchemy()
-DB_NAME = "database.db"
-
+import secrets
 
 def create_app():
-    # A Flask osztály egy példánya
     app = Flask(__name__)
 
-    # https://flask.palletsprojects.com/en/1.0.x/quickstart/#sessions
-    app.config['SECRET_KEY'] = 'hjshjhdjah kjshkjdhjs'
+    # User could look at the contents of your cookie but not modify it, unless they know the secret key used for signing.
+    # Set secret key in Flask
+    app.secret_key = secrets.token_urlsafe(16)
+    # print(app.secret_key)
 
-    app.config['SQLALCHEMY_DATABASE_URI'] = f'sqlite:///{DB_NAME}'
-    db.init_app(app)
-
-    # Blueprint
     from .views import views
     from .auth import auth
 
-    # Import and register the blueprint from the factory
-    app.register_blueprint(views, url_prefix='/')
-    app.register_blueprint(auth, url_prefix='/')
+    app.register_blueprint(views)
+    app.register_blueprint(auth)
 
-    from .models import User, Note
-
-    create_database(app)
-
-    login_manager = LoginManager()
-    login_manager.login_view = 'auth.login'
-    login_manager.init_app(app)
-
-    @login_manager.user_loader
-    def load_user(id):
-        return User.query.get(int(id))
+    # If you check the rules registered on the application
+    # print(app.url_map)
 
     return app
-
-
-def create_database(app):
-    if not path.exists('website/' + DB_NAME):
-        db.create_all(app=app)
-        print('Created Database!')
