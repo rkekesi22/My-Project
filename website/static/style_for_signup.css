@@ -16,6 +16,10 @@
     margin-bottom: 20px;
 }
 
+.signup-form .form-group .inf{
+    font-size: 12px;
+}
+
 .signup-form .btn{
     background: #eeeeee;
     border:none;
