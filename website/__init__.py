@@ -2,6 +2,7 @@ from flask import Flask
 import secrets
 from flask_sqlalchemy import SQLAlchemy
 from os import path
+from flask_login import LoginManager
 
 # https://flask-sqlalchemy.palletsprojects.com/en/2.x/
 db = SQLAlchemy()
@@ -31,6 +32,16 @@ def create_app():
     # print(app.url_map)
 
     from .models import User
+
+    # https://flask-login.readthedocs.io/en/latest/#login-example
+    # például hogy hogyan lehet betölteni egy felhasználót az azonosítóból, hová kell küldeni a felhasználókat, amikor bejelentkezniük kell, és hasonlók.
+    login_manager = LoginManager()
+    login_manager.login_view = 'auth.login'
+    login_manager.init_app(app)
+
+    @login_manager.user_loader
+    def load_user(id):
+        return User.query.get(int(id))
 
     create_database(app)
 

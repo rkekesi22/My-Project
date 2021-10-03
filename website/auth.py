@@ -1,4 +1,8 @@
-from flask import Blueprint,render_template,request,flash
+from flask import Blueprint,render_template,request,flash,redirect,url_for
+from .models import User
+from werkzeug.security import generate_password_hash,check_password_hash
+from . import db
+from flask_login import login_user,login_required, logout_user, current_user
 
 auth = Blueprint('auth', __name__, url_prefix='/')
 
@@ -9,20 +13,40 @@ def login():
     # ImmutableMultiDict([('email', 'rolcsi01@hotmail.com'), ('password', '4did@HMcDQJz2CC')])
     # print(data)
 
-    return render_template('login.html')
+    if request.method == 'POST':
+        email = request.form.get('email')
+        password = request.form.get('password')
+
+        # https://flask-sqlalchemy.palletsprojects.com/en/2.x/quickstart/?highlight=query%20filter_by
+        user = User.query.filter_by(email=email).first()
+        if user:
+            # Összehasonlítja a meglévő jelszavakat a jelenlegivel
+            if check_password_hash(user.password,password):
+                flash('Sikeres bejelentkezés!', category='success')
+                # https://flask-login.readthedocs.io/en/latest/#flask_login.login_user
+                login_user(user,remember=True)
+                return redirect(url_for('views.home'))
+            else:
+                flash('Helytelen jelszó, kérem próbálja meg újból.', category='error')
+        else:
+            flash('Email cím nem létezik!', category='error')
+
+    return render_template('login.html', user=current_user)
     # return render_template('login.html', text="This is my webpage")
 
-
+# @login_required -> Csak akkor történhet meg, ha a felhasználó be van jelentkezve
 @auth.route('/logout')
+@login_required
 def logout():
-    return 'Logout'
+    logout_user()
+    return redirect(url_for('auth.login'))
 
 
 @auth.route('/sign-up',methods=['GET','POST'])
 def sign_up():
     if request.method == 'POST':
-        firstName = request.form.get('firstName')
-        lastName = request.form.get('lastName')
+        first_name = request.form.get('firstName')
+        last_name = request.form.get('lastName')
         email = request.form.get('email')
         password1 = request.form.get('password1')
         password2 = request.form.get('password2')
@@ -30,9 +54,12 @@ def sign_up():
         # ÖTLET: Jelszó ellenőrzés: tartalmaz-e betűt,számot és egyéb karaktert
 
         # https://flask.palletsprojects.com/en/2.0.x/patterns/flashing/?highlight=flash
-        if len(firstName) < 2:
+        user = User.query.filter_by(email=email).first()
+        if user:
+            flash('A megadott email cím már létezik!', category='error')
+        elif len(first_name) < 2:
             flash('Túl rövid vezetéknév! Kérlek 1 karakternél többet adj meg.', category='error')
-        elif len(lastName) < 2:
+        elif len(last_name) < 2:
             flash('Túl rövid keresztnév! Kérlek 1 karakternél többet adj meg.', category='error')
         elif len(email) < 4:
             flash('Túl rövid email cím! Kérlek 3 karakternél többet adj meg.', category='error')
@@ -43,11 +70,16 @@ def sign_up():
         elif password1 != password2:
             flash('A jelszavak nem egyeznek, kérlek próbáld meg újból.', category='error')
         else:
+            new_user = User(first_name=first_name,last_name=last_name,email=email,password= generate_password_hash(password1,'sha256'))
+            db.session.add(new_user)
+            db.session.commit()
+            login_user(user)
             flash('Sikeres regisztráció!', category='success')
+            # Returns a response object (a WSGI application) that, if called, redirects the client to the target location.
+            # To build a URL to a specific function, use the url_for() function.
+            return redirect(url_for('views.home'))
 
-
-
-    return render_template('sign_up.html')
+    return render_template('sign_up.html', user=current_user)
 
 
 # Jelsó ellenőrzés
