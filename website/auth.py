@@ -48,8 +48,8 @@ def logout():
 @auth.route('/sign-up',methods=['GET','POST'])
 def sign_up():
     if request.method == 'POST':
-        first_name = request.form.get('firstName')
         last_name = request.form.get('lastName')
+        first_name = request.form.get('firstName')
         email = request.form.get('email')
         password1 = request.form.get('password1')
         password2 = request.form.get('password2')
@@ -60,9 +60,9 @@ def sign_up():
         user = User.query.filter_by(email=email).first()
         if user:
             flash('A megadott email cím már létezik!', category='error')
-        elif len(first_name) < 2:
-            flash('Túl rövid vezetéknév! Kérlek 1 karakternél többet adj meg.', category='error')
         elif len(last_name) < 2:
+            flash('Túl rövid vezetéknév! Kérlek 1 karakternél többet adj meg.', category='error')
+        elif len(first_name) < 2:
             flash('Túl rövid keresztnév! Kérlek 1 karakternél többet adj meg.', category='error')
         elif len(email) < 4:
             flash('Túl rövid email cím! Kérlek 3 karakternél többet adj meg.', category='error')
@@ -73,7 +73,7 @@ def sign_up():
         elif password1 != password2:
             flash('A jelszavak nem egyeznek, kérlek próbáld meg újból.', category='error')
         else:
-            new_user = User(first_name=first_name,last_name=last_name,email=email,password= generate_password_hash(password1,'sha256'))
+            new_user = User(last_name=last_name,first_name=first_name,email=email,password= generate_password_hash(password1,'sha256'))
             db.session.add(new_user)
             db.session.commit()
             login_user(new_user,remember=True)
