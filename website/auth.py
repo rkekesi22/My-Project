@@ -1,10 +1,12 @@
-from flask import Blueprint,render_template,request,flash,redirect,url_for
+from flask import Blueprint, render_template, request, flash, redirect, url_for
 from .models import User
-from werkzeug.security import generate_password_hash,check_password_hash
+from werkzeug.security import generate_password_hash, check_password_hash
 from . import db
-from flask_login import login_user,login_required, logout_user, current_user
+from flask_login import login_user, login_required, logout_user, current_user
+
 
 auth = Blueprint('auth', __name__, url_prefix='/')
+
 
 # Now from inside the function we'll check if we are receiving a GET or POST request.
 @auth.route('/login', methods=['GET','POST'] )
@@ -33,6 +35,7 @@ def login():
 
     return render_template('login.html', user=current_user)
     # return render_template('login.html', text="This is my webpage")
+
 
 # @login_required -> Csak akkor történhet meg, ha a felhasználó be van jelentkezve
 @auth.route('/logout')
@@ -73,7 +76,7 @@ def sign_up():
             new_user = User(first_name=first_name,last_name=last_name,email=email,password= generate_password_hash(password1,'sha256'))
             db.session.add(new_user)
             db.session.commit()
-            login_user(user)
+            login_user(new_user,remember=True)
             flash('Sikeres regisztráció!', category='success')
             # Returns a response object (a WSGI application) that, if called, redirects the client to the target location.
             # To build a URL to a specific function, use the url_for() function.
