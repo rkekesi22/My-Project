@@ -31,7 +31,7 @@ def create_app():
     # If you check the rules registered on the application
     # print(app.url_map)
 
-    from .models import User
+    from .models import User,Projects,Tasks
 
     # https://flask-login.readthedocs.io/en/latest/#login-example
     # például hogy hogyan lehet betölteni egy felhasználót az azonosítóból, hová kell küldeni a felhasználókat, amikor bejelentkezniük kell, és hasonlók.
