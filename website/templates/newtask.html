@@ -9,19 +9,24 @@
         <hr>
     <!-- https://getbootstrap.com/docs/5.0/forms/layout/ -->
         <div class="form-group">
+            <input type="text" class="form-control" id="projectName" name="projectName" placeholder="Projekt neve" required>
+        </div>
+        <div class="form-group">
             <input type="text" class="form-control" id="taskName" name="taskName" placeholder="Feladat neve" required>
         </div>
         <div class="form-group">
-            <input type="text" class="form-control" id="taskSubject" name="taskSubject" placeholder="Feladat tárgya" required>
+            <select class="form-select" id="status" name="status" >
+                <option selected disabled>Státusz</option>
+                <option value="1">Nyílt</option>
+                <option value="2">Zárt</option>
+              </select>
         </div>
         <div class="form-group">
             <input type="date" class="form-control" id="taskTime" name="taskTime" placeholder="Dátum" required>
         </div>
         <div class="form-group">
-            <div class="mb-3">
                 <!-- <label for="exampleFormControlTextarea1" class="form-label">Example textarea</label> -->
-                <textarea class="form-control" id="description" rows="3" placeholder="Feladat leírása"></textarea>
-            </div>
+                <textarea class="form-control" id="description" name="description" rows="3" placeholder="Feladat leírása"></textarea>
         </div>
         <!-- https://getbootstrap.com/docs/5.0/components/buttons/ -->
         <div>
