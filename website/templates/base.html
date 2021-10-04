@@ -24,7 +24,7 @@
       <!-- https://getbootstrap.com/docs/5.0/components/navbar/ -->
       <nav class="navbar navbar-expand-lg navbar-light">
           <div class="container-fluid">
-            <a class="navbar-brand" href="/">My Project</a>
+            <a class="navbar-brand">My Project</a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
               <span class="navbar-toggler-icon"></span>
             </button>
@@ -32,19 +32,25 @@
                 <!-- https://getbootstrap.com/docs/5.0/utilities/flex/ -->
               <ul class="navbar-nav ms-auto">
                 {% if user.is_authenticated %}
-                <li class="nav-item">
-                  <a class="nav-link active" id="home" aria-current="page" href="/">Home</a>
-                </li>
-                <li class="nav-item">
-                  <a class="nav-link" id="logout" href="/logout" >Kijelentkezés</a>
-                </li>
+                  <li class="nav-item">
+                    <a class="nav-link active" id="home" aria-current="page" href="/">Home</a>
+                  </li>
+                  <li class="nav-item">
+                    <a class="nav-link" id="currenttasks" href="/currenttasks">Aktuális feladatok</a>
+                  </li>
+                  <li class="nav-item">
+                    <a class="nav-link" id="newtask" href="/newtask">Új feladat</a>
+                  </li>
+                  <li class="nav-item">
+                    <a class="nav-link" id="logout" href="/logout" >Kijelentkezés</a>
+                  </li>
                 {%else%}
-                <li class="nav-item">
-                  <a class="nav-link" id="signUp" href="/sign-up">Regisztráció</a>
-                </li>
-                <li class="nav-item">
-                  <a class="nav-link" id="login" href="/login">Bejelentkezés</a>
-                </li>
+                  <li class="nav-item">
+                    <a class="nav-link" id="signUp" href="/sign-up">Regisztráció</a>
+                  </li>
+                  <li class="nav-item">
+                    <a class="nav-link" id="login" href="/login">Bejelentkezés</a>
+                  </li>
                 {%endif%}
               </ul>
             </div>
