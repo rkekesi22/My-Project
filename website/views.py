@@ -21,16 +21,12 @@ def new_task():
         data = request.form.to_dict()
         project_name = request.form.get('projectName')
 
-        print("project_name: " + project_name)
-        print("bool(project_name): " + str(bool(project_name)))
 
         if not project_name:
             project_name = 'Tasks'
 
-        print("project_name: " + project_name)
-
         projects = Projects.query.all()
-        print("projects: " + str(projects))
+
         for proj in projects:
             print(proj.project_name + "-----" + project_name)
             if proj.project_name == project_name and current_user.id == proj.user_id:
@@ -42,7 +38,6 @@ def new_task():
             db.session.commit()
             projects = Projects.query.all()
 
-        print("projects: " + str(projects))
 
         for proj in projects:
             print(proj.project_name + "-----" + project_name)
@@ -71,9 +66,7 @@ def currenttasks():
     projects = Projects.query.all()
     tasks = Tasks.query.all()
 
-    print("projects:")
     print(projects.__repr__())
-    print("tasks: ")
     print(tasks.__repr__())
 
 
@@ -92,7 +85,6 @@ def currenttasks():
 
             print(bool(active))
         if not active:
-            print('Beléptem')
             projects[0].active = True
             active = projects[0].project_id
     else:
@@ -107,7 +99,8 @@ def currenttasks():
 @views.route('/project/<tab>')
 @login_required
 def tab_nav(tab):
-    """Switches between active tabs"""
+
+    print("HAHO itt vagyok.")
     projects = Projects.query.all()
 
     for project in projects:
@@ -115,6 +108,24 @@ def tab_nav(tab):
             project.active = True
         else:
             project.active = False
+
+    db.session.commit()
+    return redirect(url_for('views.currenttasks'))
+
+
+@views.route('/close/<int:task_id>')
+@login_required
+def close_task(task_id):
+
+    task = Tasks.query.get(task_id)
+
+    if not task:
+        return redirect(url_for('views.currenttasks'))
+
+    if task.status:
+        task.status = False
+    else:
+        task.status = True
 
     db.session.commit()
     return redirect(url_for('views.currenttasks'))
