@@ -8,13 +8,24 @@ class User(db.Model, UserMixin):
     first_name = db.Column(db.String(60), unique=True)
     email = db.Column(db.String(120), unique=True)
     password = db.Column(db.String(120))
+    projects = db.relationship('Projects')
 
 
 class Projects(db.Model):
-    project_id = db.Column(db.Integer,primary_key=True)
-    project_name = db.Column(db.String(30))
-    active = active = db.Column(db.Boolean)
+    """Projects schema"""
+    project_id = db.Column(db.Integer, primary_key=True)
+    project_name = db.Column(db.String(20))
+    active = db.Column(db.Boolean)
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'))
+    tasks = db.relationship('Tasks')
+
+    def __init__(self, project, active, user_id):
+        self.project_name = project
+        self.active = active
+        self.user_id = user_id
+
+    def __repr__(self):
+        return '<Project {}>'.format(self.project_name)
 
 
 class Tasks(db.Model):
@@ -24,3 +35,13 @@ class Tasks(db.Model):
     status = db.Column(db.Boolean, default=False)
     task_time = db.Column(db.String(60))
     description = db.Column(db.String(250))
+
+    def __init__(self, project_id, task_name, status, task_time, description):
+        self.project_id = project_id
+        self.task_name = task_name
+        self.status = status
+        self.task_time = task_time
+        self.description = description
+
+    def __repr__(self):
+        return '<Task {}>'.format(self.task)
