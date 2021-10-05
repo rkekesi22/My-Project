@@ -33,7 +33,7 @@ def new_task():
         print("projects: " + str(projects))
         for proj in projects:
             print(proj.project_name + "-----" + project_name)
-            if proj.project_name == project_name:
+            if proj.project_name == project_name and current_user.id == proj.user_id:
                 found = True
 
         if not found:
@@ -55,7 +55,7 @@ def new_task():
         status = bool(int(request.form['status']))
         print(request.form['status'])
 
-        new_task = Tasks(project_id,data.get('taskName'),status,data.get('taskTime'),data.get('description'))
+        new_task = Tasks(project_id,data.get('taskName'),status,data.get('taskTime'),data.get('description'),current_user.id)
         db.session.add(new_task)
         db.session.commit()
 
@@ -65,5 +65,56 @@ def new_task():
 
 
 @views.route('/currenttasks')
+@login_required
 def currenttasks():
-    return render_template('currenttasks.html', user=current_user)
+    active = None
+    projects = Projects.query.all()
+    tasks = Tasks.query.all()
+
+    print("projects:")
+    print(projects.__repr__())
+    print("tasks: ")
+    print(tasks.__repr__())
+
+
+    if len(projects) == 1:
+        projects[0].active = True
+        active = projects[0].project_id
+        db.session.commit()
+
+    if projects:
+        for project in projects:
+            print(project)
+            print(project.project_id)
+            print(project.active)
+            if project.active:
+                active = project.project_id
+
+            print(bool(active))
+        if not active:
+            print('Beléptem')
+            projects[0].active = True
+            active = projects[0].project_id
+    else:
+        projects = None
+
+    if projects:
+        return render_template('currenttasks.html', tasks=tasks, projects=projects, active=active, user=current_user)
+    else:
+        return render_template('currenttasks.html', tasks=tasks, active=active, user=current_user)
+
+
+@views.route('/project/<tab>')
+@login_required
+def tab_nav(tab):
+    """Switches between active tabs"""
+    projects = Projects.query.all()
+
+    for project in projects:
+        if project.project_name == tab and current_user.id == project.user_id:
+            project.active = True
+        else:
+            project.active = False
+
+    db.session.commit()
+    return redirect(url_for('views.currenttasks'))

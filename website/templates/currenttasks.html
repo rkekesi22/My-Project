@@ -1,5 +1,52 @@
 <!-- https://jinja.palletsprojects.com/en/3.0.x/templates/#list-of-control-structures -->
 <!-- Child template -->
-{% extends "base.html"%}{% block title %}Új feladat{% endblock %} 
+{% extends "base.html"%}{% block title %}Aktuális feladatok{% endblock %} 
 {%block content%}
+
+{%if tasks%}
+    {%if projects%}
+        <div>
+            <ul>
+                {%for tab in user.projects%} 
+                    {%if tab.project_id == active%}
+                        <li>
+                    {%else%}
+                        <li>
+                    {%endif%}
+                    <a href="/project/{{ tab.project_name }}">{{tab.project_name}}</a>
+                    </li>
+                {%endfor%}
+            </ul>
+        </div>
+    {%endif%}
+{%endif%}
+
+
+<table class="table">
+    <thread>
+        <td>Feladat Neve</td>
+        <td>Leírás</td>
+        <td>Dátum</td>
+        <td>Státusz</td>
+    </thread>
+    <tbody>
+        {%for task in user.tasks%}
+            {%if task.project_id == active%}
+                {%if task.status == True%}
+                    <tr>
+                        <td> {{task.task_name}}</td>
+                        <td> {{task.description}}</td>
+                        <td> {{task.task_time}}</td>
+                {%else%}
+                    <tr>
+                        <td><del>{{task.task_name}}</del></td>
+                        <td><del> {{task.description}} </del> </td>
+                        <td><del> {{task.task_time}} </del></td>
+                {%endif%}
+                    </tr>
+                </tr>    
+            {%endif%}
+        {%endfor%}
+    </tbody>
+</table>
 {%endblock%}
