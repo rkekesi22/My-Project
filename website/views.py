@@ -129,3 +129,35 @@ def close_task(task_id):
 
     db.session.commit()
     return redirect(url_for('views.currenttasks'))
+
+
+@views.route('/remove/<list_id>')
+@login_required
+def remove_all(list_id):
+    Tasks.query.filter(Tasks.project_id==list_id).delete()
+    db.session.commit()
+    return redirect(url_for('views.currenttasks'))
+
+
+@views.route('/delete/<int:task_id>')
+@login_required
+def delete_task(task_id):
+    task = Tasks.query.get(task_id)
+
+    if not task:
+        return redirect(url_for('views.currenttasks'))
+
+    db.session.delete(task)
+    db.session.commit()
+    return redirect(url_for('views.currenttasks'))
+
+
+@views.route('/clear/<delete_id>')
+@login_required
+def clear_all(delete_id):
+    Tasks.query.filter(Tasks.project_id==delete_id).delete()
+    Projects.query.filter(Projects.project_id==delete_id).delete()
+    db.session.commit()
+    return redirect(url_for('views.currenttasks'))
+
+
