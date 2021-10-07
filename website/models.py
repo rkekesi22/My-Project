@@ -10,6 +10,7 @@ class User(db.Model, UserMixin):
     password = db.Column(db.String(120))
     projects = db.relationship('Projects')
     tasks = db.relationship('Tasks')
+    datum = db.relationship('Datum')
 
 
 class Projects(db.Model):
@@ -47,3 +48,17 @@ class Tasks(db.Model):
 
     def __repr__(self):
         return '<Task {}>'.format(self.task_name)
+
+class Datum(db.Model):
+    datum_id = db.Column(db.Integer, primary_key=True)
+    ev = db.Column(db.Integer)
+    honap = db.Column(db.String(30))
+    active = db.Column(db.Boolean)
+    user_id = db.Column(db.Integer, db.ForeignKey('user.id'))
+
+    def __init__(self,ev,honap,active,user_id):
+        self.ev = ev
+        self.honap = honap
+        self.active = active
+        self.user_id = user_id
+
