@@ -10,10 +10,20 @@ import datetime
 
 views = Blueprint('views',__name__,url_prefix='/')
 
-@views.route('/')
+@views.route('/', methods = ["GET","POST"])
 @login_required
 def home():
-    return render_template('home.html', user = current_user)
+    year = today_date.year
+    month = today_date.month
+    day = today_date.day
+    day_name = days[today_date.today().weekday()]
+    date_task = datetime.date(year=year, month=month, day=day)
+    this_month = one_month(month, year)
+
+    if request.method == 'GET':
+        return render_template('home.html', user = current_user)
+
+
 
 
 @views.route('/newtask', methods=['GET', 'POST'])
@@ -165,12 +175,38 @@ def clear_all(delete_id):
     return redirect(url_for('views.currenttasks'))
 
 
-@views.route('/calendar')
+@views.route(f"/{today_date.year}/{today_date.month}", methods=['GET', 'POST'])
 @login_required
-def calendar():
+def calendar(year,month):
     week = short_day_names
+    if request.method == 'GET':
+        this_month = one_month(month, year)
+        if this_month is False:
+            abort(404)
+        months_name = months[1:]
+        href = f'/{year}/{month}/'
+        return render_template('calendar.html', user = current_user, months_name=months_name, months=this_month[0], le=this_month[1],
+                               year=this_month[2], month_name=this_month[3], week=week, href=href )
 
-    return render_template('calendar.html', user=current_user, week=week)
+    if request.method == 'POST':
+        if request.form.get('button') == 'last_month':
+            month = month - 1
+            return redirect(f'/{year}/{month}')
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
