@@ -4,6 +4,8 @@ from flask_sqlalchemy import SQLAlchemy
 from os import path
 from flask_login import LoginManager
 
+
+
 # https://flask-sqlalchemy.palletsprojects.com/en/2.x/
 db = SQLAlchemy()
 DB_NAME = "database.db"
@@ -31,7 +33,7 @@ def create_app():
     # If you check the rules registered on the application
     # print(app.url_map)
 
-    from .models import User,Projects,Tasks,Datum
+    from .models import User
 
     # https://flask-login.readthedocs.io/en/latest/#login-example
     # például hogy hogyan lehet betölteni egy felhasználót az azonosítóból, hová kell küldeni a felhasználókat, amikor bejelentkezniük kell, és hasonlók.
