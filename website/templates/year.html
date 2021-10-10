@@ -1,6 +1,5 @@
 {% extends "base.html"%}{% block title %}Naptár{% endblock %} 
 {%block content%}
-<div class="jumbotron jumbotron-fluid">
     <div class="row">
         <div class="col">
             <!-- <button name="button" value="last_month" class="btn btn-secondary btn-lg">
@@ -34,369 +33,371 @@
             </a>
         </div>
     </div>
-</div>
 
-<div class="row">
-    <div class="col">
-        <td>
-            <table>
-                <tr>
-                    <table>
-                        <span><a href="{{ href }}/1">{{ months_name_list.1 }}</a></span>
-                        <tr>
-                            {% for day_name in week_day_name%} 
-                            <td>{{day_name}}</td>
-                            {%endfor%} 
-                        </tr>
-                        {%for week in year_calendar.0 %} 
-                        <tr>
-                            {% for day in week %}
-                            {%if day == 0 %} 
-                            <td>&nbsp</td>
-                            {%else%}
-                            <td>{{day}}</td>
-                            {%endif%}
-                            {%endfor%} 
-                        </tr>
-                        {%endfor%}
-                        </tr>
-                    </table>
-                </tr>
-            </table>
-        </td>
-    </div>
-</div>
-<div class="row">
-    <div class="col">
-        <td>
-            <table>
-                <tr>
-                    <table>
-                        <span><a href="{{ href }}/2">{{ months_name_list.2 }}</a></span>
-                        <tr>
-                            {% for day_name in week_day_name%} 
-                            <td>{{day_name}}</td>
-                            {%endfor%} 
-                        </tr>
-                        {%for week in year_calendar.1 %} 
-                        <tr>
-                            {% for day in week %}
-                            {%if day == 0 %} 
-                            <td>&nbsp</td>
-                            {%else%}
-                            <td>{{day}}</td>
-                            {%endif%}
-                            {%endfor%} 
-                        </tr>
-                        {%endfor%}
-                        </tr>
-                    </table>
-                </tr>
-            </table>
-        </td>
-    </div>
-</div>
-<div class="row">
-    <div class="col">
-        <td>
-            <table>
-                <tr>
-                    <table>
-                        <span><a href="{{ href }}/3">{{ months_name_list.3 }}</a></span>
-                        <tr>
-                            {% for day_name in week_day_name%} 
-                            <td>{{day_name}}</td>
-                            {%endfor%} 
-                        </tr>
-                        {%for week in year_calendar.2 %} 
-                        <tr>
-                            {% for day in week %}
-                            {%if day == 0 %} 
-                            <td>&nbsp</td>
-                            {%else%}
-                            <td>{{day}}</td>
-                            {%endif%}
-                            {%endfor%} 
-                        </tr>
-                        {%endfor%}
-                        </tr>
-                    </table>
-                </tr>
-            </table>
-        </td>
-    </div>
-</div>
-<div class="row">
-    <div class="col">
-        <td>
-            <table>
-                <tr>
-                    <table>
-                        <span><a href="{{ href }}/4">{{ months_name_list.4 }}</a></span>
-                        <tr>
-                            {% for day_name in week_day_name%} 
-                            <td>{{day_name}}</td>
-                            {%endfor%} 
-                        </tr>
-                        {%for week in year_calendar.3 %} 
-                        <tr>
-                            {% for day in week %}
-                            {%if day == 0 %} 
-                            <td>&nbsp</td>
-                            {%else%}
-                            <td>{{day}}</td>
-                            {%endif%}
-                            {%endfor%} 
-                        </tr>
-                        {%endfor%}
-                        </tr>
-                    </table>
-                </tr>
-            </table>
-        </td>
-    </div>
-</div>
-<div class="row">
-    <div class="col">
-        <td>
-            <table>
-                <tr>
-                    <table>
-                        <span><a href="{{ href }}/5">{{ months_name_list.5 }}</a></span>
-                        <tr>
-                            {% for day_name in week_day_name%} 
-                            <td>{{day_name}}</td>
-                            {%endfor%} 
-                        </tr>
-                        {%for week in year_calendar.4 %} 
-                        <tr>
-                            {% for day in week %}
-                            {%if day == 0 %} 
-                            <td>&nbsp</td>
-                            {%else%}
-                            <td>{{day}}</td>
-                            {%endif%}
-                            {%endfor%} 
-                        </tr>
-                        {%endfor%}
-                        </tr>
-                    </table>
-                </tr>
-            </table>
-        </td>
-    </div>
-</div>
-<div class="row">
-    <div class="col">
-        <td>
-            <table>
-                <tr>
-                    <table>
-                        <span><a href="{{ href }}/6">{{ months_name_list.6 }}</a></span>
-                        <tr>
-                            {% for day_name in week_day_name%} 
-                            <td>{{day_name}}</td>
-                            {%endfor%} 
-                        </tr>
-                        {%for week in year_calendar.5 %} 
-                        <tr>
-                            {% for day in week %}
-                            {%if day == 0 %} 
-                            <td>&nbsp</td>
-                            {%else%}
-                            <td>{{day}}</td>
-                            {%endif%}
-                            {%endfor%} 
-                        </tr>
-                        {%endfor%}
-                        </tr>
-                    </table>
-                </tr>
-            </table>
-        </td>
-    </div>
-</div>
-<div class="row">
-    <div class="col">
-        <td>
-            <table>
-                <tr>
-                    <table>
-                        <span><a href="{{ href }}/7">{{ months_name_list.7 }}</a></span>
-                        <tr>
-                            {% for day_name in week_day_name%} 
-                            <td>{{day_name}}</td>
-                            {%endfor%} 
-                        </tr>
-                        {%for week in year_calendar.6 %} 
-                        <tr>
-                            {% for day in week %}
-                            {%if day == 0 %} 
-                            <td>&nbsp</td>
-                            {%else%}
-                            <td>{{day}}</td>
-                            {%endif%}
-                            {%endfor%} 
-                        </tr>
-                        {%endfor%}
-                        </tr>
-                    </table>
-                </tr>
-            </table>
-        </td>
-    </div>
-</div>
-<div class="row">
-    <div class="col">
-        <td>
-            <table>
-                <tr>
-                    <table>
-                        <span><a href="{{ href }}/8">{{ months_name_list.8 }}</a></span>
-                        <tr>
-                            {% for day_name in week_day_name%} 
-                            <td>{{day_name}}</td>
-                            {%endfor%} 
-                        </tr>
-                        {%for week in year_calendar.7 %} 
-                        <tr>
-                            {% for day in week %}
-                            {%if day == 0 %} 
-                            <td>&nbsp</td>
-                            {%else%}
-                            <td>{{day}}</td>
-                            {%endif%}
-                            {%endfor%} 
-                        </tr>
-                        {%endfor%}
-                        </tr>
-                    </table>
-                </tr>
-            </table>
-        </td>
-    </div>
-</div>
-<div class="row">
-    <div class="col">
-        <td>
-            <table>
-                <tr>
-                    <table>
-                        <span><a href="{{ href }}/9">{{ months_name_list.9 }}</a></span>
-                        <tr>
-                            {% for day_name in week_day_name%} 
-                            <td>{{day_name}}</td>
-                            {%endfor%} 
-                        </tr>
-                        {%for week in year_calendar.8 %} 
-                        <tr>
-                            {% for day in week %}
-                            {%if day == 0 %} 
-                            <td>&nbsp</td>
-                            {%else%}
-                            <td>{{day}}</td>
-                            {%endif%}
-                            {%endfor%} 
-                        </tr>
-                        {%endfor%}
-                        </tr>
-                    </table>
-                </tr>
-            </table>
-        </td>
-    </div>
-</div>
-<div class="row">
-    <div class="col">
-        <td>
-            <table>
-                <tr>
-                    <table>
-                        <span><a href="{{ href }}/10">{{ months_name_list.10 }}</a></span>
-                        <tr>
-                            {% for day_name in week_day_name%} 
-                            <td>{{day_name}}</td>
-                            {%endfor%} 
-                        </tr>
-                        {%for week in year_calendar.9 %} 
-                        <tr>
-                            {% for day in week %}
-                            {%if day == 0 %} 
-                            <td>&nbsp</td>
-                            {%else%}
-                            <td>{{day}}</td>
-                            {%endif%}
-                            {%endfor%} 
-                        </tr>
-                        {%endfor%}
-                        </tr>
-                    </table>
-                </tr>
-            </table>
-        </td>
-    </div>
-</div>
-<div class="row">
-    <div class="col">
-        <td>
-            <table>
-                <tr>
-                    <table>
-                        <span><a href="{{ href }}/11">{{ months_name_list.11 }}</a></span>
-                        <tr>
-                            {% for day_name in week_day_name%} 
-                            <td>{{day_name}}</td>
-                            {%endfor%} 
-                        </tr>
-                        {%for week in year_calendar.10 %} 
-                        <tr>
-                            {% for day in week %}
-                            {%if day == 0 %} 
-                            <td>&nbsp</td>
-                            {%else%}
-                            <td>{{day}}</td>
-                            {%endif%}
-                            {%endfor%} 
-                        </tr>
-                        {%endfor%}
-                        </tr>
-                    </table>
-                </tr>
-            </table>
-        </td>
-    </div>
-</div>
-<div class="row">
-    <div class="col">
-        <td>
-            <table>
-                <tr>
-                    <table>
-                        <span><a href="{{ href }}/12">{{ months_name_list.12 }}</a></span>
-                        <tr>
-                            {% for day_name in week_day_name%} 
-                            <td>{{day_name}}</td>
-                            {%endfor%} 
-                        </tr>
-                        {%for week in year_calendar.11 %} 
-                        <tr>
-                            {% for day in week %}
-                            {%if day == 0 %} 
-                            <td>&nbsp</td>
-                            {%else%}
-                            <td>{{day}}</td>
-                            {%endif%}
-                            {%endfor%} 
-                        </tr>
-                        {%endfor%}
-                        </tr>
-                    </table>
-                </tr>
-            </table>
-        </td>
-    </div>
-</div>
 
+    
+        <div class="container">
+            <div class="container">
+    <div class="row">
+        <div class="col">
+            <td>
+            <table>
+                <tr>
+                    <td>
+                        <table>
+                            <span><a href="{{ href }}/1">{{ months_name_list.1 }}</a></span>
+                            <tr>
+                                {% for day_name in week_day_name %}
+                                <td>{{ day_name }}</td>
+                                {% endfor %}
+                            </tr>
+                            {% for week in year_calendar.0 %}
+                            <tr>
+                                {% for day in week %}
+                                {% if day ==0 %}
+                                <td>&nbsp</td>
+                                {% else %}
+                                <td>{{ day }}</td>
+                                {% endif %}
+                                {% endfor %}
+                            </tr>
+                            {% endfor %}
+                        </table>
+                    </td>
+                </tr>
+            </table>
+        </td>
+        </div>
+        <div class="col">
+            <td>
+            <table>
+                <tr>
+                    <td>
+                        <table>
+                            <span><a href="{{ href }}/2">{{ months_name_list.2 }}</a></span>
+                            <tr>
+                                {% for day_name in week_day_name %}
+                                <td>{{ day_name }}</td>
+                                {% endfor %}
+                            </tr>
+                            {% for week in year_calendar.1 %}
+                            <tr>
+                                {% for day in week %}
+                                {% if day ==0 %}
+                                <td>&nbsp</td>
+                                {% else %}
+                                <td>{{ day }}</td>
+                                {% endif %}
+                                {% endfor %}
+                            </tr>
+                            {% endfor %}
+                        </table>
+                    </td>
+                </tr>
+            </table>
+        </td>
+        </div>
+        <div class="col">
+            <td>
+            <table>
+                <tr>
+                    <td>
+                        <table>
+                            <span><a href="{{ href }}/3">{{ months_name_list.3 }}</a></span>
+                            <tr>
+                                {% for day_name in week_day_name %}
+                                <td>{{ day_name }}</td>
+                                {% endfor %}
+                            </tr>
+                            {% for week in year_calendar.2 %}
+                            <tr>
+                                {% for day in week %}
+                                {% if day ==0 %}
+                                <td>&nbsp</td>
+                                {% else %}
+                                <td>{{ day }}</td>
+                                {% endif %}
+                                {% endfor %}
+                            </tr>
+                            {% endfor %}
+                        </table>
+                    </td>
+                </tr>
+            </table>
+        </td>
+        </div>
+        <div class="col">
+            <td>
+            <table>
+                <tr>
+                    <td>
+                        <table>
+                            <span><a href="{{ href }}/4">{{ months_name_list.4 }}</a></span>
+                            <tr>
+                                {% for day_name in week_day_name %}
+                                <td>{{ day_name }}</td>
+                                {% endfor %}
+                            </tr>
+                            {% for week in year_calendar.3 %}
+                            <tr>
+                                {% for day in week %}
+                                {% if day ==0 %}
+                                <td>&nbsp</td>
+                                {% else %}
+                                <td>{{ day }}</td>
+                                {% endif %}
+                                {% endfor %}
+                            </tr>
+                            {% endfor %}
+                        </table>
+                    </td>
+                </tr>
+            </table>
+        </td>
+        </div>
+    </div>
+    </div>
+            <div class="container">
+    <div class="row">
+        <div class="col">
+            <td>
+            <table>
+                <tr>
+                    <td>
+                        <table>
+                            <span><a href="{{ href }}/5">{{ months_name_list.5 }}</a></span>
+                            <tr>
+                                {% for day_name in week_day_name %}
+                                <td>{{ day_name }}</td>
+                                {% endfor %}
+                            </tr>
+                            {% for week in year_calendar.4 %}
+                            <tr>
+                                {% for day in week %}
+                                {% if day ==0 %}
+                                <td>&nbsp</td>
+                                {% else %}
+                                <td>{{ day }}</td>
+                                {% endif %}
+                                {% endfor %}
+                            </tr>
+                            {% endfor %}
+                        </table>
+                    </td>
+                </tr>
+            </table>
+        </td>
+        </div>
+        <div class="col">
+            <td>
+            <table>
+                <tr>
+                    <td>
+                        <table>
+                            <span><a href="{{ href }}/6">{{ months_name_list.6 }}</a></span>
+                            <tr>
+                                {% for day_name in week_day_name %}
+                                <td>{{ day_name }}</td>
+                                {% endfor %}
+                            </tr>
+                            {% for week in year_calendar.5 %}
+                            <tr>
+                                {% for day in week %}
+                                {% if day ==0 %}
+                                <td>&nbsp</td>
+                                {% else %}
+                                <td>{{ day }}</td>
+                                {% endif %}
+                                {% endfor %}
+                            </tr>
+                            {% endfor %}
+                        </table>
+                    </td>
+                </tr>
+            </table>
+        </td>
+        </div>
+        <div class="col">
+            <td>
+            <table>
+                <tr>
+                    <td>
+                        <table>
+                            <span><a href="{{ href }}/7">{{ months_name_list.7 }}</a></span>
+                            <tr>
+                                {% for day_name in week_day_name %}
+                                <td>{{ day_name }}</td>
+                                {% endfor %}
+                            </tr>
+                            {% for week in year_calendar.6 %}
+                            <tr>
+                                {% for day in week %}
+                                {% if day ==0 %}
+                                <td>&nbsp</td>
+                                {% else %}
+                                <td>{{ day }}</td>
+                                {% endif %}
+                                {% endfor %}
+                            </tr>
+                            {% endfor %}
+                        </table>
+                    </td>
+                </tr>
+            </table>
+        </td>
+        </div>
+        <div class="col">
+            <td>
+            <table>
+                <tr>
+                    <td>
+                        <table>
+                            <span><a href="{{ href }}/8">{{ months_name_list.8 }}</a></span>
+                            <tr>
+                                {% for day_name in week_day_name %}
+                                <td>{{ day_name }}</td>
+                                {% endfor %}
+                            </tr>
+                            {% for week in year_calendar.7 %}
+                            <tr>
+                                {% for day in week %}
+                                {% if day ==0 %}
+                                <td>&nbsp</td>
+                                {% else %}
+                                <td>{{ day }}</td>
+                                {% endif %}
+                                {% endfor %}
+                            </tr>
+                            {% endfor %}
+                        </table>
+                    </td>
+                </tr>
+            </table>
+        </td>
+        </div>
+    </div>
+    </div>
+            <div class="container">
+    <div class="row">
+        <div class="col">
+            <td>
+            <table>
+                <tr>
+                    <td>
+                        <table>
+                            <span><a href="{{ href }}/9">{{ months_name_list.9 }}</a></span>
+                            <tr>
+                                {% for day_name in week_day_name %}
+                                <td>{{ day_name }}</td>
+                                {% endfor %}
+                            </tr>
+                            {% for week in year_calendar.8 %}
+                            <tr>
+                                {% for day in week %}
+                                {% if day ==0 %}
+                                <td>&nbsp</td>
+                                {% else %}
+                                <td>{{ day }}</td>
+                                {% endif %}
+                                {% endfor %}
+                            </tr>
+                            {% endfor %}
+                        </table>
+                    </td>
+                </tr>
+            </table>
+        </td>
+        </div>
+        <div class="col">
+            <td>
+            <table>
+                <tr>
+                    <td>
+                        <table>
+                            <span><a href="{{ href }}/10">{{ months_name_list.10 }}</a></span>
+                            <tr>
+                                {% for day_name in week_day_name %}
+                                <td>{{ day_name }}</td>
+                                {% endfor %}
+                            </tr>
+                            {% for week in year_calendar.9 %}
+                            <tr>
+                                {% for day in week %}
+                                {% if day ==0 %}
+                                <td>&nbsp</td>
+                                {% else %}
+                                <td>{{ day }}</td>
+                                {% endif %}
+                                {% endfor %}
+                            </tr>
+                            {% endfor %}
+                        </table>
+                    </td>
+                </tr>
+            </table>
+        </td>
+        </div>
+        <div class="col">
+            <td>
+            <table>
+                <tr>
+                    <td>
+                        <table>
+                            <span><a href="{{ href }}/11">{{ months_name_list.11 }}</a></span>
+                            <tr>
+                                {% for day_name in week_day_name %}
+                                <td>{{ day_name }}</td>
+                                {% endfor %}
+                            </tr>
+                            {% for week in year_calendar.10 %}
+                            <tr>
+                                {% for day in week %}
+                                {% if day ==0 %}
+                                <td>&nbsp</td>
+                                {% else %}
+                                <td>{{ day }}</td>
+                                {% endif %}
+                                {% endfor %}
+                            </tr>
+                            {% endfor %}
+                        </table>
+                    </td>
+                </tr>
+            </table>
+        </td>
+        </div>
+        <div class="col">
+            <td>
+            <table>
+                <tr>
+                    <td>
+                        <table>
+                            <span><a href="{{ href }}/12">{{ months_name_list.12 }}</a></span>
+                            <tr>
+                                {% for day_name in week_day_name %}
+                                <td>{{ day_name }}</td>
+                                {% endfor %}
+                            </tr>
+                            {% for week in year_calendar.11 %}
+                            <tr>
+                                {% for day in week %}
+                                {% if day ==0 %}
+                                <td>&nbsp</td>
+                                {% else %}
+                                <td>{{ day }}</td>
+                                {% endif %}
+                                {% endfor %}
+                            </tr>
+                            {% endfor %}
+                        </table>
+                    </td>
+                </tr>
+            </table>
+        </td>
+        </div>
+    </div>
+    </div>
+        </div>
 
 
 {%endblock%}

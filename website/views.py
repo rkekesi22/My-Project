@@ -264,6 +264,32 @@ def one_year_view(year):
                            year=this_year[2], months_name_list=months_name_list, week_day_name=week_day_name)
 
 
+@views.route("/last_year/<year>")
+@login_required
+def last_year(year):
+    year2 = int(year) -1
+    return redirect(f"/{year2}")
+
+
+@views.route("/next_year/<year>")
+@login_required
+def next_year(year):
+    year2 = int(year) +1
+    return redirect(f"/{year2}")
+
+
+@views.route("/<href>/<int:number>")
+@login_required
+def control(href,number):
+    year2 = int(href)
+    with open("date.txt", 'w') as f:
+        f.write(str(year2) + "/" + str(number))
+        f.close()
+    return redirect(url_for('views.calendar'))
+
+
+
+
 
 
 
