@@ -1,0 +1,45 @@
+<!-- https://jinja.palletsprojects.com/en/3.0.x/templates/#list-of-control-structures -->
+<!-- Child template -->
+{% extends "base.html"%}{% block title %}Regisztráció{% endblock %} 
+{%block content%}
+<!--https://www.tutorialrepublic.com/snippets/preview.php?topic=bootstrap&file=simple-sign-up-form-with-blue-background-->
+<!--Sign up Template-->
+<div class="signup-form">
+    <form method="post">
+        <h2 align="center"> Regisztráció </h2>
+        <hr>
+    <!-- https://getbootstrap.com/docs/5.0/forms/layout/ -->
+        <!-- Form Grid -->
+        <div class="form-group">
+            <div class="row g-5">
+                <div class="col">
+                    <input type="text" class="form-control" id="lastName" name="lastName" placeholder="Vezetéknév" required>
+                </div>
+                <div class="col">
+                    <input type="text" class="form-control" id="firstName" name="firstName" placeholder="Keresztnév" required>
+                </div>
+            </div>
+            <!--  -->
+        </div>
+
+        <div class="form-group">
+            <input type="email" class="form-control" id="email" name="email" placeholder="Email cím"  required>
+        </div>
+        <div class="form-group">
+            <input type="password" class="form-control" id="password1" name="password1" placeholder="Jelszó" required>
+            <div class="inf">
+                <p> Legalább 5 karaktert használjon, és szerepeljenek köztük betűk, számok és szimbólumok is.</p>
+            </div>
+        </div>
+        <div class="form-group">
+            <input type="password" class="form-control" id="password2" name="password2" placeholder="Jelszó mégegyszer" required>
+        </div>
+        
+
+        <!-- https://getbootstrap.com/docs/5.0/components/buttons/ -->
+        <div>
+            <button type="submit" class="btn btn-primary btn-lg">Regisztrálás</button>
+        </div>
+    </form>
+</div>
+{%endblock%}

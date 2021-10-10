@@ -1,0 +1,24 @@
+<!-- https://jinja.palletsprojects.com/en/3.0.x/templates/#list-of-control-structures -->
+<!-- Child template -->
+{% extends "base.html"%}{% block title %}Bejelentkezés{% endblock %} 
+{%block content%}
+<!-- {{text}} -->
+<div class="signup-form">
+    <form method="post">
+        <h2 align="center"> Bejelentkezés </h2>
+        <hr>
+    <!-- https://getbootstrap.com/docs/5.0/forms/layout/ -->
+        <div class="form-group">
+            <input type="email" class="form-control" id="email" name="email" placeholder="Email cím"  required>
+        </div>
+        <div class="form-group">
+            <input type="password" class="form-control" id="password" name="password" placeholder="Jelszó" required>
+        </div>
+
+        <!-- https://getbootstrap.com/docs/5.0/components/buttons/ -->
+        <div>
+            <button type="submit" class="btn btn-primary btn-lg">Bejelentkezés</button>
+        </div>
+    </form>
+</div>
+{%endblock%}
