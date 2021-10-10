@@ -10,9 +10,18 @@ import datetime
 
 views = Blueprint('views',__name__,url_prefix='/')
 
+def write_date_text():
+    with open('date.txt', mode='w') as f:
+        year = datetime.date.today().year
+        month = datetime.date.today().month
+        f.write(str(year) + "/" + str(month))
+        f.close()
+
+
 @views.route('/', methods = ["GET","POST"])
 @login_required
 def home():
+    write_date_text()
     year = today_date.year
     month = today_date.month
     day = today_date.day
@@ -29,6 +38,7 @@ def home():
 @views.route('/newtask', methods=['GET', 'POST'])
 @login_required
 def new_task():
+    write_date_text()
     if request.method == 'POST':
 
         found = False
@@ -76,6 +86,7 @@ def new_task():
 @views.route('/currenttasks')
 @login_required
 def currenttasks():
+    write_date_text()
     active = None
     projects = Projects.query.all()
     tasks = Tasks.query.all()
@@ -175,35 +186,6 @@ def clear_all(delete_id):
     return redirect(url_for('views.currenttasks'))
 
 
-# @views.route("/<int:year>/<int:month>", methods=['GET', 'POST'])
-# @login_required
-# def calendar(year,month):
-#     print(year)
-#     print(month)
-#     week = short_day_names
-#     if request.method == 'GET':
-#         this_month = one_month(month, year)
-#         if this_month is False:
-#             abort(404)
-#         months_name = months[1:]
-#         href = f'/{year}/{month}/'
-#         return render_template('calendar.html', user = current_user, months_name=months_name, months=this_month[0], le=this_month[1],
-#                                year=this_month[2], month_name=this_month[3], week=week, href=href )
-#
-#     if request.method == 'POST':
-#         if request.form.get('button') == 'last_month':
-#             if month == 1:
-#                 month = 12
-#                 return redirect(f'/{year - 1}/{month}')
-#             else:
-#                 return redirect(f'/{year}/{month - 1}')
-#         elif request.form.get('button') == 'next_month':
-#             if month == 12:
-#                 month = 1
-#                 return redirect(f'/{year + 1}/{month}')
-#             else:
-#                 return redirect(f'/{year}/{month + 1}')
-
 @views.route('/calendar')
 @login_required
 def calendar():
@@ -269,6 +251,17 @@ def next_month(year,month_name):
             f.write(str(year) + "/" + str(month))
             f.close()
         return redirect(url_for('views.calendar'))
+
+
+@views.route("/<int:year>")
+@login_required
+def one_year_view(year):
+    months_name_list = months
+    week_day_name = short_day_names
+    this_year = one_year(year)
+    href = f'/{year}/'
+    return render_template('year.html', user=current_user, href=href, year_calendar=this_year[0], len_calendar_months=this_year[1],
+                           year=this_year[2], months_name_list=months_name_list, week_day_name=week_day_name)
 
 
 
