@@ -175,28 +175,100 @@ def clear_all(delete_id):
     return redirect(url_for('views.currenttasks'))
 
 
-@views.route(f"/{today_date.year}/{today_date.month}", methods=['GET', 'POST'])
+# @views.route("/<int:year>/<int:month>", methods=['GET', 'POST'])
+# @login_required
+# def calendar(year,month):
+#     print(year)
+#     print(month)
+#     week = short_day_names
+#     if request.method == 'GET':
+#         this_month = one_month(month, year)
+#         if this_month is False:
+#             abort(404)
+#         months_name = months[1:]
+#         href = f'/{year}/{month}/'
+#         return render_template('calendar.html', user = current_user, months_name=months_name, months=this_month[0], le=this_month[1],
+#                                year=this_month[2], month_name=this_month[3], week=week, href=href )
+#
+#     if request.method == 'POST':
+#         if request.form.get('button') == 'last_month':
+#             if month == 1:
+#                 month = 12
+#                 return redirect(f'/{year - 1}/{month}')
+#             else:
+#                 return redirect(f'/{year}/{month - 1}')
+#         elif request.form.get('button') == 'next_month':
+#             if month == 12:
+#                 month = 1
+#                 return redirect(f'/{year + 1}/{month}')
+#             else:
+#                 return redirect(f'/{year}/{month + 1}')
+
+@views.route('/calendar')
 @login_required
-def calendar(year,month):
+def calendar():
+    year = 0
+    month = 0
+    with open("date.txt", "r") as f:
+        d = f.read().split("/")
+        year = d[0]
+        month = d[1]
+        f.close
+
+    print(year)
+    print(month)
     week = short_day_names
-    if request.method == 'GET':
-        this_month = one_month(month, year)
-        if this_month is False:
-            abort(404)
-        months_name = months[1:]
-        href = f'/{year}/{month}/'
-        return render_template('calendar.html', user = current_user, months_name=months_name, months=this_month[0], le=this_month[1],
-                               year=this_month[2], month_name=this_month[3], week=week, href=href )
-
-    if request.method == 'POST':
-        if request.form.get('button') == 'last_month':
-            month = month - 1
-            return redirect(f'/{year}/{month}')
+    this_month = one_month(month, year)
+    if this_month is False:
+        abort(404)
+    months_name = months[1:]
+    href = f'/{year}/{month}/'
+    return render_template('calendar.html', user = current_user, months_name=months_name, months=this_month[0], le=this_month[1],
+                                   year=this_month[2], month_name=this_month[3], week=week, href=href )
 
 
+@views.route("/last_month/<year>/<month_name>")
+@login_required
+def last_month(year,month_name):
+    month = months.index(month_name)
+
+    year2 = int(year)
+
+    if month == 1:
+        month = 12
+        year2 = year2 - 1
+        with open("date.txt",'w') as f:
+            f.write(str(year2) + "/" + str(month))
+            f.close()
+        return redirect(url_for('views.calendar'))
+    else:
+        month =  month - 1
+        with open("date.txt",'w') as f:
+            f.write(str(year) + "/" + str(month))
+            f.close()
+        return redirect(url_for('views.calendar'))
 
 
+@views.route("/next_month/<year>/<month_name>")
+@login_required
+def next_month(year,month_name):
+    month = months.index(month_name)
 
+    year2 = int(year)
+
+    if month == 12:
+        month = 1
+        year2 = year2 + 1
+        with open("date.txt",'w') as f:
+            f.write(str(year2) + "/" + str(month))
+            f.close()
+        return redirect(url_for('views.calendar'))
+    else:
+        month =  month + 1
+        with open("date.txt",'w') as f:
+            f.write(str(year) + "/" + str(month))
+            f.close()
+        return redirect(url_for('views.calendar'))
 
 
 
