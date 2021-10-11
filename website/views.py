@@ -29,11 +29,19 @@ def home():
     date_task = datetime.date(year=year, month=month, day=day)
     this_month = one_month(month, year)
 
+    # user_task = db.session.query(Todo).filter(Todo.date_to_do == date_task).filter(Todo.user_id == user_id).\
+    #                 order_by(Todo.start_time).all()
 
+    user_task = db.session.query(Tasks).filter(Tasks.task_time == f"{year}-{month}-{day}").filter(Tasks.status == True).\
+        filter(Tasks.user_id == current_user.id).all()
+
+    for i in user_task:
+        print(i)
 
     if request.method == 'GET':
         return render_template('home.html', user = current_user, day_name = day_name, today_date = today_date,
-                               month_name=this_month[3],short_day_names=short_day_names,months=this_month[0],week=this_month[4])
+                               month_name=this_month[3],short_day_names=short_day_names,months=this_month[0],week=this_month[4],
+                               tasks = user_task)
 
 
 

@@ -2,8 +2,10 @@
 <!-- Child template -->
 {% extends "base.html"%}{% block title %}Home{% endblock %} 
 {%block content%}
-<h1 class="display-4 text-xl-center">Üdvözöllek {{user.first_name}}</h1>
-<h1 class="display-6 text-xl-center">{{ today_date }}</h1>
+<div class="home">
+    <h1 class="display-4 text-xl-center">Üdvözöllek {{user.first_name}}</h1>
+    <h1 class="display-6 text-xl-center">{{ today_date }}</h1>
+</div>
 
 
 
@@ -69,17 +71,18 @@
                                     <div class="row justify-content-md-center"></div>
                                     <table class="text-xl-center">
                                         <tr>
-                                            <th>Feladat</th>
+                                            <th>Feladatok:</th>
                                         </tr>
-                                        {%for task in user.tasks%}
-                                        {%if task.project_id == active%}
-                                            {%if task.status == True%}
-                                                <tr>
-                                                    <td> {{task.description}}</td>
-                                                </tr>
-                                                {%endif%}
-                                                {%endif%}
-                                                {%endfor%}
+                                        {% for task in tasks %}
+                                        <tr>
+                                            <td>{{ task.description }}</td>
+                                            <!-- <td>
+                                                <button class="btn btn-dark" name="to_details" value="{{ task.task_number }}">
+                                                    {{ task.title }}
+                                                </button>
+                                            </td> -->
+                                        </tr>
+                                        {% endfor %}
                                     </table>
                                 </div>
                             </div>
