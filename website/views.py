@@ -14,7 +14,8 @@ def write_date_text():
     with open('date.txt', mode='w') as f:
         year = datetime.date.today().year
         month = datetime.date.today().month
-        f.write(str(year) + "/" + str(month))
+        day = datetime.date.today().day
+        f.write(str(year) + "/" + str(month) + "/" + str(day))
         f.close()
 
 
@@ -29,9 +30,6 @@ def home():
     date_task = datetime.date(year=year, month=month, day=day)
     this_month = one_month(month, year)
 
-    # user_task = db.session.query(Todo).filter(Todo.date_to_do == date_task).filter(Todo.user_id == user_id).\
-    #                 order_by(Todo.start_time).all()
-
     user_task = db.session.query(Tasks).filter(Tasks.task_time == f"{year}-{month}-{day}").filter(Tasks.status == True).\
         filter(Tasks.user_id == current_user.id).all()
 
@@ -42,8 +40,6 @@ def home():
         return render_template('home.html', user = current_user, day_name = day_name, today_date = today_date,
                                month_name=this_month[3],short_day_names=short_day_names,months=this_month[0],week=this_month[4],
                                tasks = user_task)
-
-
 
 
 @views.route('/newtask', methods=['GET', 'POST'])
@@ -292,11 +288,38 @@ def next_year(year):
 @views.route("/<href>/<int:number>")
 @login_required
 def control(href,number):
+    print("itt: " + href)
     year2 = int(href)
+
     with open("date.txt", 'w') as f:
         f.write(str(year2) + "/" + str(number))
         f.close()
     return redirect(url_for('views.calendar'))
+
+
+@views.route("/day", methods=['GET','POST'])
+@login_required
+def day_view():
+    with open('date.txt','r') as f:
+        d = f.read().split('/')
+        year = d[0]
+        month = d[1]
+        day = d[2]
+        f.close()
+    value= day1(int(year), int(month), int(day))
+    print(value)
+    return render_template('day.html', user = current_user,value=value, month=month)
+
+
+@views.route("/<year>/<month>/<day>")
+@login_required
+def concret_day(year,month,day):
+
+    with open("date.txt", 'w') as f:
+        f.write(str(year) + "/" + str(month) + "/" + str(day))
+        f.close()
+
+    return redirect(url_for('views.day_view'))
 
 
 

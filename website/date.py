@@ -28,7 +28,7 @@ tomorrow_day_name = datetime.datetime.now() + datetime.timedelta(days=1)
 tomorrow_date = (datetime.date.today() + datetime.timedelta(days=1))
 # print(tomorrow_date)
 
-def day(year, month, day):
+def day1(year, month, day):
     try:
         day_name = calendar.weekday(year, month, day)
         return [day, months[month], year, days[day_name]]

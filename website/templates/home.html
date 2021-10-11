@@ -17,18 +17,16 @@
         <div class="container">
             <div class="row">
                 <div class="col">
-                    <form method="POST">
                         <div class="row justify-content-md-center">
                             <div class="card text-white bg-dark mb-3" style="min-height: 23rem; max-height: 30rem; max-width: 18rem; min-width: 18rem;">
-                                <button class="btn btn-dark" name="button" value="day">
-                                    <div class="card-header" style="min-height: 5rem;"><h1 class="text-xl-center"1 >{{ day_name }}</h1></div>
+                                <a class="nav-link link-light" href="/day" style="border-bottom: 0px;">
+                                    <div class="card-header" style="min-height: 5rem;"><h1 class="text-xl-center">{{ day_name }}</h1></div>
                                     <div class="row justify-content-md-center"></div>
                                     <h1 class="display-1 text-xl-center">{{ today_date.day }}</h1>
                                     <h1 class="text-xl-center">{{ month_name }}</h1>
-                                </button>
+                                </a>
                             </div>
                         </div>
-                    </form>
                     </div>
                 <div class="col">
                       <form method="POST">
