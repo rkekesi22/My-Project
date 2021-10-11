@@ -29,8 +29,11 @@ def home():
     date_task = datetime.date(year=year, month=month, day=day)
     this_month = one_month(month, year)
 
+
+
     if request.method == 'GET':
-        return render_template('home.html', user = current_user)
+        return render_template('home.html', user = current_user, day_name = day_name, today_date = today_date,
+                               month_name=this_month[3],short_day_names=short_day_names,months=this_month[0],week=this_month[4])
 
 
 
@@ -91,8 +94,8 @@ def currenttasks():
     projects = Projects.query.all()
     tasks = Tasks.query.all()
 
-    print(projects.__repr__())
-    print(tasks.__repr__())
+    # print(projects.__repr__())
+    # print(tasks.__repr__())
 
 
     if len(projects) == 1:

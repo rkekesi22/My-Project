@@ -2,4 +2,85 @@
 <!-- Child template -->
 {% extends "base.html"%}{% block title %}Home{% endblock %} 
 {%block content%}
+<h1 class="display-4 text-xl-center">Üdvözöllek {{user.first_name}}</h1>
+<h1 class="display-6 text-xl-center">{{ today_date }}</h1>
+
+<div class="jumbotron jumbotron-fluid">
+    <div class="container">
+        <div class="container">
+            <div class="row">
+                <div class="col">
+                    <form method="POST">
+                        <div class="row justify-content-md-center">
+                            <div class="card text-white bg-dark mb-3" style="min-height: 23rem; max-height: 30rem; max-width: 18rem; min-width: 18rem;">
+                                <button class="btn btn-dark" name="button" value="day">
+                                    <div class="card-header" style="min-height: 5rem;"><h1 class="text-xl-center"1 >{{ day_name }}</h1></div>
+                                    <div class="row justify-content-md-center"></div>
+                                    <h1 class="display-1 text-xl-center">{{ today_date.day }}</h1>
+                                    <h1 class="text-xl-center">{{ month_name }}</h1>
+                                </button>
+                            </div>
+                        </div>
+                    </form>
+                    </div>
+                <div class="col">
+                      <form method="POST">
+                          <div class="row justify-content-md-center">
+                              <div class="card text-white bg-dark mb-3" style="min-height: 23rem; max-height: 30rem; max-width: 18rem; min-width: 18rem;">
+                                <button class="btn btn-dark" name="button" value="month">
+                                    <div class="card-header" style="min-height: 5rem;"><h1 class="text-xl-center">{{ month_name }}</h1></div>
+                                    <h1 class="display-5 text-xl-center">{{ year }}</h1>
+                                    <div class="row justify-content-md-center">
+                                        <table class="text-xl-center">
+                                        <tr>
+                                            {% for day_name in short_day_names %}
+                                            <td>{{ day_name }}</td>
+                                            {% endfor %}
+                                        </tr>
+
+                                          {% for week in months %}
+                                        <tr>
+                                            {% for day in week %}
+                                            {% if day ==0 %}
+                                            <td>&nbsp</td>
+                                            {% else %}
+                                            <td>{{ day }}</td>
+                                            {% endif %}
+                                            {% endfor %}
+                                        </tr>
+                                        {% endfor %}
+                                    </table>
+                                    </div>
+                                </button>
+                            </div>
+                        </div>
+                      </form>
+                    </div>
+                    <div class="col">
+                        <form method="POST">
+                            <div class="row justify-content-md-center">
+                                <div class="card text-white bg-dark mb-3"  style="min-height: 23rem; max-height: 30rem; max-width: 18rem; min-width: 18rem;">
+                                    <div class="card-header" style="min-height: 5rem;"><h2>A mai napi tervek:</h2></div>
+                                    <div class="row justify-content-md-center"></div>
+                                    <table class="text-xl-center">
+                                        <tr>
+                                            <th>Feladat</th>
+                                        </tr>
+                                        {%for task in user.tasks%}
+                                        {%if task.project_id == active%}
+                                            {%if task.status == True%}
+                                                <tr>
+                                                    <td> {{task.description}}</td>
+                                                </tr>
+                                                {%endif%}
+                                                {%endif%}
+                                                {%endfor%}
+                                    </table>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
 {%endblock%}
