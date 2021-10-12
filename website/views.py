@@ -322,6 +322,89 @@ def concret_day(year,month,day):
     return redirect(url_for('views.day_view'))
 
 
+@views.route("/last_day/<int:day>")
+@login_required
+def last_day(day):
+    year = 0
+    month = 0
+    with open("date.txt", 'r') as f:
+        d = f.read().split("/")
+        year = int(d[0])
+        month = int(d[1])
+        f.close()
+
+
+    if day == 1 and month != 1:
+        month = month - 1
+        day = month_days[month]
+        with open("date.txt", 'w') as f:
+            f.write(str(year) + "/" + str(month) + "/" + str(day))
+            f.close()
+
+        return redirect(url_for('views.day_view'))
+    elif day == 1 and month == 1:
+        year = year - 1
+        month = 12
+        day = month_days[month]
+        with open("date.txt", 'w') as f:
+            f.write(str(year) + "/" + str(month) + "/" + str(day))
+            f.close()
+
+        return redirect(url_for('views.day_view'))
+    else:
+        day = day - 1
+        with open("date.txt", 'w') as f:
+            f.write(str(year) + "/" + str(month) + "/" + str(day))
+            f.close()
+
+        return redirect(url_for('views.day_view'))
+
+
+@views.route("/next_day/<int:day>")
+@login_required
+def next_day(day):
+    year = 0
+    month = 0
+    with open("date.txt", 'r') as f:
+        d = f.read().split("/")
+        year = int(d[0])
+        month = int(d[1])
+        f.close()
+
+    utolso_nap = month_days[month]
+
+    if day == utolso_nap and month != 12:
+        month = month + 1
+        day = 1
+        with open("date.txt", 'w') as f:
+            f.write(str(year) + "/" + str(month) + "/" + str(day))
+            f.close()
+
+        return redirect(url_for('views.day_view'))
+    elif day == utolso_nap and month == 12:
+        year = year + 1
+        month = 1
+        day = 1
+        with open("date.txt", 'w') as f:
+            f.write(str(year) + "/" + str(month) + "/" + str(day))
+            f.close()
+
+        return redirect(url_for('views.day_view'))
+    else:
+        day = day + 1
+        with open("date.txt", 'w') as f:
+            f.write(str(year) + "/" + str(month) + "/" + str(day))
+            f.close()
+
+        return redirect(url_for('views.day_view'))
+
+
+
+
+
+
+
+
 
 
 
