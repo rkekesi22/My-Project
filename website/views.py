@@ -2,7 +2,7 @@ from flask import Blueprint, render_template, request, redirect, url_for
 from flask_login import login_required, current_user
 from werkzeug.exceptions import abort
 
-from .models import Projects,Tasks
+from .models import Projects,Tasks,Jutalom
 from . import db
 
 from .date import *
@@ -399,6 +399,37 @@ def next_day(day):
         return redirect(url_for('views.day_view'))
 
 
+@views.route("/jutalmak", methods=['GET','POST'])
+@login_required
+def jutalmak():
+    if request.method == 'GET':
+        user_jutalom = db.session.query(Jutalom).filter(Jutalom.user_id == current_user.id).all()
+        print(user_jutalom)
+
+        return render_template("jutalom.html", user = current_user, jutalmak = user_jutalom)
+
+    if request.method == 'POST':
+        found = False
+
+        data = request.form.to_dict()
+        jutalom_name = request.form.get('jutalom_name')
+        print(jutalom_name)
+
+        if not jutalom_name:
+            jutalom_name = 'Jutalom'
+
+        jutalom = Jutalom.query.all()
+
+        for proj in jutalom:
+            if proj.jutalom_name == jutalom_name and current_user.id == proj.user_id:
+                found = True
+
+        if not found:
+            new_jutalom = Jutalom(data.get('jutalom_name'), data.get('ossz'),0,data.get('difficulty'), current_user.id)
+            db.session.add(new_jutalom)
+            db.session.commit()
+
+            return redirect(url_for('views.jutalmak'))
 
 
 

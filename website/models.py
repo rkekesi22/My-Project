@@ -10,6 +10,7 @@ class User(db.Model, UserMixin):
     password = db.Column(db.String(120))
     projects = db.relationship('Projects')
     tasks = db.relationship('Tasks')
+    jutalom = db.relationship('Jutalom')
 
 
 class Projects(db.Model):
@@ -49,5 +50,21 @@ class Tasks(db.Model):
 
     def __repr__(self):
         return '<Task {}>'.format(self.task_name)
+
+
+class Jutalom(db.Model):
+    jutalom_id = db.Column(db.Integer, primary_key=True)
+    jutalom_name = db.Column(db.String(60))
+    ossz = db.Column(db.Integer)
+    teljesitett_fel = db.Column(db.Integer)
+    difficulty = db.Column(db.String(60))
+    user_id = db.Column(db.Integer, db.ForeignKey('user.id'))
+
+    def __init__(self, jutalom_name,ossz,teljesitett_fel, difficulty, user_id):
+        self.jutalom_name = jutalom_name
+        self.ossz = ossz
+        self.teljesitett_fel = teljesitett_fel
+        self.difficulty = difficulty
+        self.user_id = user_id
 
 
