@@ -34,15 +34,17 @@ class Tasks(db.Model):
     task_name = db.Column(db.String(60))
     status = db.Column(db.Boolean, default=False)
     task_time = db.Column(db.String(60))
+    difficulty = db.Column(db.String(60))
     description = db.Column(db.String(250))
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'))
 
-    def __init__(self, project_id, task_name, status, task_time, description,user_id):
+    def __init__(self, project_id, task_name, status, task_time, difficulty, description,user_id):
         self.project_id = project_id
         self.task_name = task_name
         self.status = status
         self.task_time = task_time
         self.description = description
+        self.difficulty = difficulty
         self.user_id = user_id
 
     def __repr__(self):

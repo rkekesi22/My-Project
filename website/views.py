@@ -81,7 +81,7 @@ def new_task():
         status = bool(int(request.form['status']))
         print(request.form['status'])
 
-        new_task = Tasks(project_id,data.get('taskName'),status,data.get('taskTime'),data.get('description'),current_user.id)
+        new_task = Tasks(project_id,data.get('taskName'),status,data.get('taskTime'),data.get('difficulty'),data.get('description'),current_user.id)
         db.session.add(new_task)
         db.session.commit()
 
