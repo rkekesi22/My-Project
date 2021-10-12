@@ -98,6 +98,9 @@ def currenttasks():
     projects = Projects.query.all()
     tasks = Tasks.query.all()
 
+    # user_task = db.session.query(Tasks).filter(Tasks.status == False).filter(Tasks.user_id == current_user.id).all()
+
+
     # print(projects.__repr__())
     # print(tasks.__repr__())
 
@@ -121,6 +124,8 @@ def currenttasks():
             active = projects[0].project_id
     else:
         projects = None
+
+
 
     if projects:
         return render_template('currenttasks.html', tasks=tasks, projects=projects, active=active, user=current_user)
@@ -308,7 +313,11 @@ def day_view():
         f.close()
     value= day1(int(year), int(month), int(day))
     print(value)
-    return render_template('day.html', user = current_user,value=value, month=month)
+
+    user_task = db.session.query(Tasks).filter(Tasks.task_time == f"{year}-{month}-{day}").filter(Tasks.status == True). \
+        filter(Tasks.user_id == current_user.id).all()
+
+    return render_template('day.html', user = current_user,value=value, month=month, tasks = user_task)
 
 
 @views.route("/<year>/<month>/<day>")
@@ -403,8 +412,8 @@ def next_day(day):
 @login_required
 def jutalmak():
     if request.method == 'GET':
+        # user_task = db.session.query(Tasks).filter(Tasks.status == False).filter(Tasks.user_id == current_user.id).all()
         user_jutalom = db.session.query(Jutalom).filter(Jutalom.user_id == current_user.id).all()
-        print(user_jutalom)
 
         return render_template("jutalom.html", user = current_user, jutalmak = user_jutalom)
 

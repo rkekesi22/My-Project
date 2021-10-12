@@ -28,4 +28,44 @@
         </li>
     </ul>
 </div>
+
+
+<table class="table  table-hover">
+    <thread>
+        <td>Feladat Neve</td>
+        <td>Leírás</td>
+        <td>Nehézség</td>
+    </thread>
+    <tbody>
+        {%for task in tasks%}
+                    <tr>
+                        <td> {{task.task_name}}</td>
+                        <td> {{task.description}}</td>
+                        <td> 
+                            {%if task.difficulty == "low"%}
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="#01ff01" class="bi bi-square-fill" viewBox="0 0 16 16">
+                                <path d="M0 2a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V2z"/>
+                            </svg>
+                            {%elif task.difficulty == "medium"%}
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="#ffd601" class="bi bi-square-fill" viewBox="0 0 16 16">
+                                <path d="M0 2a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V2z"/>
+                            </svg>
+                            {%else%}
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="#9b0101" class="bi bi-square-fill" viewBox="0 0 16 16">
+                                <path d="M0 2a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V2z"/>
+                            </svg>
+                            {%endif%}
+                        </td>
+                
+                    <tr>
+                        <td><del>{{task.task_name}}</del></td>
+                        <td><del> {{task.description}} </del> </td>
+                        <td></td>
+                
+                    </tr>
+                    </tr>
+        {%endfor%}
+    </tbody>
+</table>
+
 {%endblock%}
