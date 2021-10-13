@@ -101,6 +101,8 @@ def currenttasks():
     # user_task = db.session.query(Tasks).filter(Tasks.status == False).filter(Tasks.user_id == current_user.id).all()
 
 
+
+
     # print(projects.__repr__())
     # print(tasks.__repr__())
 
@@ -155,12 +157,19 @@ def tab_nav(tab):
 def close_task(task_id):
 
     task = Tasks.query.get(task_id)
+    print(task)
+    print(task.difficulty)
 
     if not task:
         return redirect(url_for('views.currenttasks'))
 
     if task.status:
         task.status = False
+        jutalom = Jutalom.query.filter(current_user.id == Jutalom.user_id).filter(task.difficulty == Jutalom.difficulty).first()
+        jutalom.teljesitett_fel = jutalom.teljesitett_fel + 1
+        db.session.commit()
+        # update_jutalom = Jutalom.query.filter_by().first()
+        # for i in update_jutalom:
     else:
         task.status = True
 
@@ -203,6 +212,7 @@ def clear_all(delete_id):
 def calendar():
     year = 0
     month = 0
+    day = 0
     with open("date.txt", "r") as f:
         d = f.read().split("/")
         year = d[0]
@@ -217,8 +227,11 @@ def calendar():
         abort(404)
     months_name = months[1:]
     href = f'/{year}/{month}/'
+
+
+
     return render_template('calendar.html', user = current_user, months_name=months_name, months=this_month[0], le=this_month[1],
-                                   year=this_month[2], month_name=this_month[3], week=week, href=href )
+                                   year=this_month[2], month_name=this_month[3], week=week, href=href, today_date = today_date.day )
 
 
 @views.route("/last_month/<year>/<month_name>")
@@ -314,7 +327,7 @@ def day_view():
     value= day1(int(year), int(month), int(day))
     print(value)
 
-    user_task = db.session.query(Tasks).filter(Tasks.task_time == f"{year}-{month}-{day}").filter(Tasks.status == True). \
+    user_task = db.session.query(Tasks).filter(Tasks.task_time == f"{year}-{month}-{day}"). \
         filter(Tasks.user_id == current_user.id).all()
 
     return render_template('day.html', user = current_user,value=value, month=month, tasks = user_task)

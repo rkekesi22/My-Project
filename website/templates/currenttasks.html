@@ -3,6 +3,28 @@
 {% extends "base.html"%}{% block title %}Aktuális feladatok{% endblock %} 
 {%block content%}
 
+<!-- {%if tasks%}
+ {%if projects%}
+<ul class="nav nav-tabs">
+    {%for tab in user.projects%}
+    <li class="nav-item dropdown">
+      <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="href="/project/{{ tab.project_name }}"" role="button" aria-expanded="false">{{tab.project_name}}</a>
+      {%for task in user.tasks%}
+      {%if task.project_id == active and task.project_id == tab.project_id%}
+                {%if task.status == True%}
+                    <ul class="dropdown-menu">
+                        <li><a class="dropdown-item" href="#">{{task.task_name}}</a></li>
+                {%endif%}
+      {%endif%}
+       {%endfor%}
+      </ul>
+    </li>
+    {%endfor%}
+  </ul>
+  {%endif%}
+  {%endif%} -->
+
+
 {%if tasks%}
     {%if projects%}
         <div>
@@ -58,11 +80,11 @@
                         <td> {{task.description}}</td>
                         <td> {{task.task_time}}</td>
                         <td> 
-                            {%if task.difficulty == "low"%}
+                            {%if task.difficulty == "Könnyű"%}
                             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="#01ff01" class="bi bi-square-fill" viewBox="0 0 16 16">
                                 <path d="M0 2a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V2z"/>
                             </svg>
-                            {%elif task.difficulty == "medium"%}
+                            {%elif task.difficulty == "Közepes"%}
                             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="#ffd601" class="bi bi-square-fill" viewBox="0 0 16 16">
                                 <path d="M0 2a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V2z"/>
                             </svg>
