@@ -25,6 +25,13 @@
                             <td> {{jutalom.ossz}}</td>
                             <td> {{jutalom.teljesitett_fel}}</td>
                             <td> {{ jutalom.difficulty}}</td>
+                            <td>
+                                <a href="/delete/jutalom/{{ jutalom.jutalom_id }}">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="#000" class="bi bi-dash-lg" viewBox="0 0 16 16">
+                                        <path d="M0 8a1 1 0 0 1 1-1h14a1 1 0 1 1 0 2H1a1 1 0 0 1-1-1z"/>
+                                    </svg>
+                                </a>
+                            </td>
                         </tr>
                         {%else%}
                         <tr>
@@ -32,6 +39,13 @@
                             <td><del> {{jutalom.ossz}}</del></td>
                             <td><del> {{jutalom.teljesitett_fel}}</del></td>
                             <td><del> {{ jutalom.difficulty}}</del></td>
+                            <td>
+                                <a href="/delete/jutalom/{{ jutalom.jutalom_id }}">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="#000" class="bi bi-dash-lg" viewBox="0 0 16 16">
+                                        <path d="M0 8a1 1 0 0 1 1-1h14a1 1 0 1 1 0 2H1a1 1 0 0 1-1-1z"/>
+                                    </svg>
+                                </a>
+                            </td>
                         </tr>
                         {%endif%}
                         {%endfor%}

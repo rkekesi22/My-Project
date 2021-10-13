@@ -15,7 +15,7 @@
                     <a class="nav-link link-dark fs-2" href="/{{ value.2 }}/{{ month }}">{{ value.0 }}  {{ value.1 }}  {{ value.2 }}</a>
                 </h3>
                 <h1 class="fs-1 text-secondary">
-                    <div>{{ value.3 }}</div>
+                    <div style="text-align: center;">{{ value.3 }}</div>
                 </h1>
             </div>
         </li>
@@ -30,11 +30,11 @@
 </div>
 
 
-<table class="table  table-hover">
+<table class="table  table-hover fs-6 fw-bold">
     <thread>
-        <td>Feladat Neve</td>
-        <td>Leírás</td>
-        <td>Nehézség</td>
+        <td class="fs-6 text-secondary">Feladat Neve</td>
+        <td class="fs-6 text-secondary">Leírás</td>
+        <td class="fs-6 text-secondary">Nehézség</td>
     </thread>
     <tbody>
         {%for task in tasks%}

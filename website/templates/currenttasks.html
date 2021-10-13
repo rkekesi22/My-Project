@@ -3,40 +3,18 @@
 {% extends "base.html"%}{% block title %}Aktuális feladatok{% endblock %} 
 {%block content%}
 
-<!-- {%if tasks%}
- {%if projects%}
-<ul class="nav nav-tabs">
-    {%for tab in user.projects%}
-    <li class="nav-item dropdown">
-      <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="href="/project/{{ tab.project_name }}"" role="button" aria-expanded="false">{{tab.project_name}}</a>
-      {%for task in user.tasks%}
-      {%if task.project_id == active and task.project_id == tab.project_id%}
-                {%if task.status == True%}
-                    <ul class="dropdown-menu">
-                        <li><a class="dropdown-item" href="#">{{task.task_name}}</a></li>
-                {%endif%}
-      {%endif%}
-       {%endfor%}
-      </ul>
-    </li>
-    {%endfor%}
-  </ul>
-  {%endif%}
-  {%endif%} -->
-
-
 {%if tasks%}
     {%if projects%}
         <div>
-            <ul >
+            <ul class = "nav">
                 {%for tab in user.projects%} 
                     {%if tab.project_id == active%}
-                        <li>
+                        <li class = "nav-item">
                     {%else%}
-                        <li>
+                        <li class = "nav-item">
                     {%endif%}
 
-                    <a href="/project/{{ tab.project_name }}">{{tab.project_name}}</a>
+                    <a class="nav-link link-secondary"  href="/project/{{ tab.project_name }}">{{tab.project_name}}</a>
                     </li>
                 {%endfor%}
             </ul>
@@ -57,12 +35,12 @@
 
 
 <table class="table  table-hover">
-    <thread>
-        <td>Feladat Neve</td>
-        <td>Leírás</td>
-        <td>Dátum</td>
-        <td>Nehézség</td>
-        <td>Státusz</td>
+    <thread >
+        <td class="fs-6 text-secondary fw-bold">Feladat Neve</td>
+        <td class="fs-6 text-secondary fw-bold">Leírás</td>
+        <td class="fs-6 text-secondary fw-bold">Dátum</td>
+        <td class="fs-6 text-secondary fw-bold">Nehézség</td>
+        <td class="fs-6 text-secondary fw-bold">Státusz</td>
             <td>
                 <a href="/remove/{{ active }}">
                     <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="#000" class="bi bi-x-lg" viewBox="0 0 16 16">
@@ -76,9 +54,9 @@
             {%if task.project_id == active%}
                 {%if task.status == True%}
                     <tr>
-                        <td> {{task.task_name}}</td>
-                        <td> {{task.description}}</td>
-                        <td> {{task.task_time}}</td>
+                        <td class="fs-6 fw-bold" > {{task.task_name}}</td>
+                        <td class="fs-6 fw-bold"> {{task.description}}</td>
+                        <td class="fs-6 fw-bold"> {{task.task_time}}</td>
                         <td> 
                             {%if task.difficulty == "Könnyű"%}
                             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="#01ff01" class="bi bi-square-fill" viewBox="0 0 16 16">
@@ -96,21 +74,21 @@
                         </td>
                 {%else%}
                     <tr>
-                        <td><del>{{task.task_name}}</del></td>
-                        <td><del> {{task.description}} </del> </td>
-                        <td><del> {{task.task_time}} </del></td>
+                        <td class="fs-6 fw-bold"><del>{{task.task_name}}</del></td>
+                        <td class="fs-6 fw-bold"><del> {{task.description}} </del> </td>
+                        <td class="fs-6 fw-bold"><del> {{task.task_time}} </del></td>
                         <td></td>
                 {%endif%}
                     <td>
                         <a href="/close/{{ task.task_id }}">
                         <!-- https://icons.getbootstrap.com/ -->
                         {%if task.status%}
-                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-check-circle" viewBox="0 0 16 16">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="#000" class="bi bi-check-circle" viewBox="0 0 16 16">
                                 <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"/>
                                 <path d="M10.97 4.97a.235.235 0 0 0-.02.022L7.477 9.417 5.384 7.323a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-1.071-1.05z"/>
                             </svg>
                         {%else%}
-                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-check-circle-fill" viewBox="0 0 16 16">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="#000" class="bi bi-check-circle-fill" viewBox="0 0 16 16">
                                 <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zm-3.97-3.03a.75.75 0 0 0-1.08.022L7.477 9.417 5.384 7.323a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-.01-1.05z"/>
                             </svg>
                         {%endif%}
@@ -118,7 +96,7 @@
                     </td>
                     <td>
                         <a href="/delete/{{ task.task_id }}">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-dash-lg" viewBox="0 0 16 16">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="#000" class="bi bi-dash-lg" viewBox="0 0 16 16">
                                 <path d="M0 8a1 1 0 0 1 1-1h14a1 1 0 1 1 0 2H1a1 1 0 0 1-1-1z"/>
                             </svg>
                         </a>

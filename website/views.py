@@ -168,8 +168,10 @@ def close_task(task_id):
 
         jutalom = Jutalom.query.filter(current_user.id == Jutalom.user_id).filter(Jutalom.status == True).all()
         for i in jutalom:
+            print(i.difficulty)
             if i.difficulty == task.difficulty:
-                update_jutalom = Jutalom.query.filter(current_user.id == Jutalom.user_id).filter(Jutalom.difficulty == task.difficulty).first()
+                update_jutalom = Jutalom.query.filter(current_user.id == Jutalom.user_id).filter(Jutalom.difficulty == task.difficulty).\
+                    filter(Jutalom.status == True).first()
                 update_jutalom.teljesitett_fel = update_jutalom.teljesitett_fel + 1
                 if update_jutalom.teljesitett_fel == update_jutalom.ossz:
                     flash(f'Gratulálok! Sikeresen teljesítetted a feladatod.{update_jutalom.jutalom_name}', category='success')
@@ -460,6 +462,20 @@ def jutalmak():
             db.session.commit()
 
             return redirect(url_for('views.jutalmak'))
+
+
+@views.route('/delete/jutalom/<int:jutalom_id>')
+@login_required
+def delete_jutalom(jutalom_id):
+    jutalom = Jutalom.query.get(jutalom_id)
+
+    if not jutalom:
+        return redirect(url_for('views.jutalmak'))
+
+    db.session.delete(jutalom)
+    db.session.commit()
+
+    return redirect(url_for('views.jutalmak'))
 
 
 
