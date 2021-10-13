@@ -10,14 +10,14 @@
         <div class="row">
             <div class="col">
                 <table class="table  table-hover">
-                    <thead>
+                    <thead class="fs-6 text-secondary fw-bold">
                         <td>Jutalom</td>
                         <td>Teljesítendő feladatok száma</td>
                         <td>Teljesített feladatok száma</td>
                         <td>Nehézség</td>
                         <!-- <td>Státusz</td> -->
                     </thead>
-                    <tbody>
+                    <tbody class="fs-6 fw-bold">
                         {% for jutalom in jutalmak %}
                         {% if jutalom.ossz != jutalom.teljesitett_fel%}
                         <tr>

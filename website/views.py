@@ -2,6 +2,7 @@ from flask import Blueprint, render_template, request, redirect, url_for, flash
 from flask_login import login_required, current_user
 from werkzeug.exceptions import abort
 
+
 from .models import Projects,Tasks,Jutalom
 from . import db
 
@@ -174,7 +175,7 @@ def close_task(task_id):
                     filter(Jutalom.status == True).first()
                 update_jutalom.teljesitett_fel = update_jutalom.teljesitett_fel + 1
                 if update_jutalom.teljesitett_fel == update_jutalom.ossz:
-                    flash(f'Gratulálok! Sikeresen teljesítetted a feladatod.{update_jutalom.jutalom_name}', category='success')
+                    flash(f'Gratulálok! Sikeresen teljesítetted a feladatod.A kitűzött jutalmad: {update_jutalom.jutalom_name}', category='success')
                     update_jutalom.status = False
 
                 db.session.commit()

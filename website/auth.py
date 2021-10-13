@@ -1,4 +1,6 @@
 from flask import Blueprint, render_template, request, flash, redirect, url_for
+from flask_bcrypt import Bcrypt
+
 from .models import User
 from werkzeug.security import generate_password_hash, check_password_hash
 from . import db
@@ -7,6 +9,8 @@ from flask_login import login_user, login_required, logout_user, current_user
 
 auth = Blueprint('auth', __name__, url_prefix='/')
 
+
+bcrypt = Bcrypt()
 
 # Now from inside the function we'll check if we are receiving a GET or POST request.
 @auth.route('/login', methods=['GET','POST'] )
@@ -23,7 +27,8 @@ def login():
         user = User.query.filter_by(email=email).first()
         if user:
             # Összehasonlítja a meglévő jelszavakat a jelenlegivel
-            if check_password_hash(user.password,password):
+            # if check_password_hash(user.password,password):
+            if bcrypt.check_password_hash(user.password, password):
                 flash('Sikeres bejelentkezés!', category='success')
                 # https://flask-login.readthedocs.io/en/latest/#flask_login.login_user
                 login_user(user,remember=True)
@@ -73,7 +78,14 @@ def sign_up():
         elif password1 != password2:
             flash('A jelszavak nem egyeznek, kérlek próbáld meg újból.', category='error')
         else:
-            new_user = User(last_name=last_name,first_name=first_name,email=email,password= generate_password_hash(password1,'sha256'))
+
+
+
+            # https://stackoverflow.com/questions/23432478/why-is-the-output-of-werkzeugs-generate-password-hash-not-constant
+            # method$salt$hash
+            # new_user = User(last_name=last_name,first_name=first_name,email=email,password= generate_password_hash(password1,'sha256',salt_length=16))
+            new_user = User(last_name=last_name, first_name=first_name, email=email,
+                            password=bcrypt.generate_password_hash(password1))
             db.session.add(new_user)
             db.session.commit()
             login_user(new_user,remember=True)

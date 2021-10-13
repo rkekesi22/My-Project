@@ -5,20 +5,17 @@
 
 {%if tasks%}
     {%if projects%}
-        <div>
-            <ul class = "nav">
                 {%for tab in user.projects%} 
                     {%if tab.project_id == active%}
-                        <li class = "nav-item">
+                        <li >
                     {%else%}
-                        <li class = "nav-item">
+                        <li >
                     {%endif%}
 
-                    <a class="nav-link link-secondary"  href="/project/{{ tab.project_name }}">{{tab.project_name}}</a>
+                    <a  href="/project/{{ tab.project_name }}">{{tab.project_name}}</a>
                     </li>
                 {%endfor%}
             </ul>
-        </div>
     {%endif%}
 {%endif%}
         <nav class="navbar justify-content-end">
@@ -57,7 +54,7 @@
                         <td class="fs-6 fw-bold" > {{task.task_name}}</td>
                         <td class="fs-6 fw-bold"> {{task.description}}</td>
                         <td class="fs-6 fw-bold"> {{task.task_time}}</td>
-                        <td> 
+                        <td style="text-align: center;"> 
                             {%if task.difficulty == "Könnyű"%}
                             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="#01ff01" class="bi bi-square-fill" viewBox="0 0 16 16">
                                 <path d="M0 2a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V2z"/>
