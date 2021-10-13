@@ -19,12 +19,21 @@
                     </thead>
                     <tbody>
                         {% for jutalom in jutalmak %}
+                        {% if jutalom.ossz != jutalom.teljesitett_fel%}
                         <tr>
                             <td> {{jutalom.jutalom_name}}</td>
                             <td> {{jutalom.ossz}}</td>
                             <td> {{jutalom.teljesitett_fel}}</td>
                             <td> {{ jutalom.difficulty}}</td>
                         </tr>
+                        {%else%}
+                        <tr>
+                            <td><del> {{jutalom.jutalom_name}}</del></td>
+                            <td><del> {{jutalom.ossz}}</del></td>
+                            <td><del> {{jutalom.teljesitett_fel}}</del></td>
+                            <td><del> {{ jutalom.difficulty}}</del></td>
+                        </tr>
+                        {%endif%}
                         {%endfor%}
                     </tbody>
                 </table>

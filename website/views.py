@@ -1,4 +1,4 @@
-from flask import Blueprint, render_template, request, redirect, url_for
+from flask import Blueprint, render_template, request, redirect, url_for, flash
 from flask_login import login_required, current_user
 from werkzeug.exceptions import abort
 
@@ -165,9 +165,17 @@ def close_task(task_id):
 
     if task.status:
         task.status = False
-        jutalom = Jutalom.query.filter(current_user.id == Jutalom.user_id).filter(task.difficulty == Jutalom.difficulty).first()
-        jutalom.teljesitett_fel = jutalom.teljesitett_fel + 1
-        db.session.commit()
+
+        jutalom = Jutalom.query.filter(current_user.id == Jutalom.user_id).filter(Jutalom.status == True).all()
+        for i in jutalom:
+            if i.difficulty == task.difficulty:
+                update_jutalom = Jutalom.query.filter(current_user.id == Jutalom.user_id).filter(Jutalom.difficulty == task.difficulty).first()
+                update_jutalom.teljesitett_fel = update_jutalom.teljesitett_fel + 1
+                if update_jutalom.teljesitett_fel == update_jutalom.ossz:
+                    flash(f'Gratulálok! Sikeresen teljesítetted a feladatod.{update_jutalom.jutalom_name}', category='success')
+                    update_jutalom.status = False
+
+                db.session.commit()
         # update_jutalom = Jutalom.query.filter_by().first()
         # for i in update_jutalom:
     else:
@@ -447,7 +455,7 @@ def jutalmak():
                 found = True
 
         if not found:
-            new_jutalom = Jutalom(data.get('jutalom_name'), data.get('ossz'),0,data.get('difficulty'), current_user.id)
+            new_jutalom = Jutalom(data.get('jutalom_name'), data.get('ossz'),0,data.get('difficulty'),True, current_user.id)
             db.session.add(new_jutalom)
             db.session.commit()
 

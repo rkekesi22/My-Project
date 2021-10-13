@@ -58,13 +58,15 @@ class Jutalom(db.Model):
     ossz = db.Column(db.Integer)
     teljesitett_fel = db.Column(db.Integer)
     difficulty = db.Column(db.String(60))
+    status = db.Column(db.Boolean,default=False)
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'))
 
-    def __init__(self, jutalom_name,ossz,teljesitett_fel, difficulty, user_id):
+    def __init__(self, jutalom_name,ossz,teljesitett_fel, difficulty,status, user_id):
         self.jutalom_name = jutalom_name
         self.ossz = ossz
         self.teljesitett_fel = teljesitett_fel
         self.difficulty = difficulty
+        self.status = status
         self.user_id = user_id
 
 
