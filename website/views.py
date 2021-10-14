@@ -131,7 +131,6 @@ def currenttasks():
         projects = None
 
 
-
     if projects:
         return render_template('currenttasks.html', tasks=tasks, projects=projects, active=active, user=current_user)
     else:
