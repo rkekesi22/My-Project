@@ -130,9 +130,17 @@ def currenttasks():
     else:
         projects = None
 
+    datumok = []
+    for task in tasks:
+        if task.status:
+            d = task.task_time.split('-')
+            li = [d[0],d[1],d[2]]
+            datumok.append(li)
 
+
+    print(datumok)
     if projects:
-        return render_template('currenttasks.html', tasks=tasks, projects=projects, active=active, user=current_user)
+        return render_template('currenttasks.html', tasks=tasks,datumok = datumok, projects=projects, active=active, user=current_user)
     else:
         return render_template('currenttasks.html', tasks=tasks, active=active, user=current_user)
 
@@ -261,10 +269,13 @@ def calendar():
     months_name = months[1:]
     href = f'/{year}/{month}/'
 
+    user_task = db.session.query(Tasks).filter(Tasks.user_id == current_user.id).all()
+
 
 
     return render_template('calendar.html', user = current_user, months_name=months_name, months=this_month[0], le=this_month[1],
-                                   year=this_month[2], month_name=this_month[3], week=week, href=href, today_date = today_date.day )
+                                   year=this_month[2], month_name=this_month[3], week=week, href=href, today_date = today_date.day, actual_month = int(today_date.month),
+                           month = int(month), actual_year = int(today_date.year))
 
 
 @views.route("/last_month/<year>/<month_name>")
@@ -362,6 +373,9 @@ def day_view():
 
     user_task = db.session.query(Tasks).filter(Tasks.task_time == f"{year}-{month}-{day}"). \
         filter(Tasks.user_id == current_user.id).all()
+
+    # for i in user_task:
+    #     print(i.task_time)
 
     return render_template('day.html', user = current_user,value=value, month=month, tasks = user_task)
 
@@ -516,12 +530,15 @@ def stoper(task_id):
             task.stoper = True
             actual_hour = time.localtime().tm_hour
             actual_min = time.localtime().tm_min
+
             task.mert_ido = f'{actual_hour}-{actual_min}'
         elif task.stoper and task.mert_ido != "0":
             task.stoper = False
             actual_hour = time.localtime().tm_hour
             actual_min = time.localtime().tm_min
 
+            actual_day = today_date.day
+            actual_month = today_date.month
 
             ido = task.mert_ido.split("-")
             hour = int(ido[0])
@@ -532,7 +549,9 @@ def stoper(task_id):
             print(actual_hour)
             print(actual_min)
 
-            if actual_hour == 0:
+            if actual_hour == 0 and actual_min == 0:
+                task.mert_ido = f'{actual_min} perc'
+            elif actual_hour == 0 and actual_min != 0:
                 task.mert_ido = f'{actual_min} perc'
             else:
                 task.mert_ido = f'{actual_hour} óra {actual_min} perc'

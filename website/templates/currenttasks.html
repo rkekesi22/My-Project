@@ -61,7 +61,12 @@
                     <tr>
                         <td class="fs-6 fw-bold" > {{task.task_name}}</td>
                         <td class="fs-6 fw-bold"> {{task.description}}</td>
-                        <td class="fs-6 fw-bold" style="text-align: center;"><a href="">{{task.task_time}}</a></td>
+                        {% for dat in datumok%}
+                        {% if task.task_time == dat|join("-")%}
+                        <td class="fs-6 fw-bold" style="text-align: center;"><a class="link-dark" href="{{dat.0}}/{{dat.1}}/{{dat.2}}">{{task.task_time}}</a></td>
+                        {%endif%}
+                        {%endfor%}
+                        <!-- <td class="fs-6 fw-bold" style="text-align: center;">{{task.task_time}}</td> -->
                         <td style="text-align: center;"> 
                             {%if task.difficulty == "Könnyű"%}
                             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="#01ff01" class="bi bi-square-fill" viewBox="0 0 16 16">
