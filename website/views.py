@@ -168,18 +168,20 @@ def jutalom_gyujtes(task_id):
     for i in jutalom:
         print(i.difficulty)
         if i.difficulty == task.difficulty:
-            # update_jutalom = Jutalom.query.filter(current_user.id == Jutalom.user_id).filter(
-            #     Jutalom.difficulty == task.difficulty). \
-            #     filter(Jutalom.status == True).first()
-            # update_jutalom.teljesitett_fel = update_jutalom.teljesitett_fel + 1
-            i.teljesitett_fel = i.teljesitett_fel + 1
-            if i.teljesitett_fel == i.ossz:
+            update_jutalom = Jutalom.query.filter(current_user.id == Jutalom.user_id).filter(
+                Jutalom.difficulty == task.difficulty). \
+                filter(Jutalom.status == True).first()
+            update_jutalom.teljesitett_fel = update_jutalom.teljesitett_fel + 1
+            # i.teljesitett_fel = i.teljesitett_fel + 1
+            if update_jutalom.teljesitett_fel == update_jutalom.ossz:
                 flash(
                     f'Gratulálok! Sikeresen teljesítetted a feladatod.A kitűzött jutalmad: {i.jutalom_name}',
                     category='success')
                 i.status = False
 
             db.session.commit()
+
+            return True
 
 
 @views.route('/close/<int:task_id>')
@@ -196,7 +198,7 @@ def close_task(task_id):
     if task.status:
         task.status = False
 
-        jutalom_gyujtes(task_id)
+        e = jutalom_gyujtes(task_id)
         # jutalom = Jutalom.query.filter(current_user.id == Jutalom.user_id).filter(Jutalom.status == True).all()
         # for i in jutalom:
         #     print(i.difficulty)
@@ -490,7 +492,7 @@ def jutalmak():
         jutalom = Jutalom.query.all()
 
         for proj in jutalom:
-            if proj.jutalom_name == jutalom_name and current_user.id == proj.user_id:
+            if proj.jutalom_name == jutalom_name and current_user.id == proj.user_id and proj.status == True:
                 found = True
 
         if not found:
@@ -499,6 +501,11 @@ def jutalmak():
             db.session.commit()
 
             return redirect(url_for('views.jutalmak'))
+        else:
+            flash('Már létezik ilyen jutalom.', category='error')
+            return redirect(url_for('views.jutalmak'))
+
+
 
 
 @views.route('/delete/jutalom/<int:jutalom_id>')
