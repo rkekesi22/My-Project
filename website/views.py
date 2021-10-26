@@ -539,6 +539,12 @@ def stoper(task_id):
             actual_min = time.localtime().tm_min
 
             task.mert_ido = f'{actual_hour}-{actual_min}'
+        elif not task.stoper and task.mert_ido != "0":
+            task.stoper = True
+            actual_hour = time.localtime().tm_hour
+            actual_min = time.localtime().tm_min
+
+            task.mert_ido = f'{actual_hour}-{actual_min}'
         elif task.stoper and task.mert_ido != "0":
             task.stoper = False
             actual_hour = time.localtime().tm_hour
