@@ -56,7 +56,6 @@ def new_task():
         data = request.form.to_dict()
         project_name = request.form.get('projectName')
 
-
         if not project_name:
             project_name = 'Tasks'
 
@@ -71,7 +70,6 @@ def new_task():
             db.session.add(new_project)
             db.session.commit()
             projects = Projects.query.all()
-
 
         for proj in projects:
             print(proj.project_name + "-----" + project_name)

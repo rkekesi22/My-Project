@@ -1,3 +1,5 @@
+import re
+
 from flask import Blueprint, render_template, request, flash, redirect, url_for
 from flask_bcrypt import Bcrypt
 
@@ -23,14 +25,10 @@ def login():
         email = request.form.get('email')
         password = request.form.get('password')
 
-        # https://flask-sqlalchemy.palletsprojects.com/en/2.x/quickstart/?highlight=query%20filter_by
         user = User.query.filter_by(email=email).first()
         if user:
-            # Összehasonlítja a meglévő jelszavakat a jelenlegivel
-            # if check_password_hash(user.password,password):
             if bcrypt.check_password_hash(user.password, password):
                 flash('Sikeres bejelentkezés!', category='success')
-                # https://flask-login.readthedocs.io/en/latest/#flask_login.login_user
                 login_user(user,remember=True)
                 return redirect(url_for('views.home'))
             else:
@@ -78,9 +76,6 @@ def sign_up():
         elif password1 != password2:
             flash('A jelszavak nem egyeznek, kérlek próbáld meg újból.', category='error')
         else:
-
-
-
             # https://stackoverflow.com/questions/23432478/why-is-the-output-of-werkzeugs-generate-password-hash-not-constant
             # method$salt$hash
             # new_user = User(last_name=last_name,first_name=first_name,email=email,password= generate_password_hash(password1,'sha256',salt_length=16))
