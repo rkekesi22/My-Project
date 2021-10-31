@@ -133,7 +133,11 @@ def currenttasks():
         if task.status:
             d = task.task_time.split('-')
             li = [d[0],d[1],d[2]]
-            datumok.append(li)
+
+            try:
+                index = datumok.index(li)
+            except:
+                datumok.append(li)
 
 
     print(datumok)
