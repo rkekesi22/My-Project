@@ -130,15 +130,20 @@ def currenttasks():
     else:
         projects = None
 
+
     datumok = []
     for task in tasks:
         if task.status:
             d = task.task_time.split('-')
             li = [d[0],d[1],d[2]]
-            datumok.append(li)
+
+            try:
+                index = datumok.index(li)
+            except:
+                datumok.append(li)
 
 
-    print(datumok)
+    print("dátumok: " + str(datumok))
     if projects:
         return render_template('currenttasks.html', tasks=tasks,datumok = datumok, projects=projects, active=active, user=current_user)
     else:
