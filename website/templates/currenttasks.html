@@ -63,6 +63,7 @@
                         <td class="fs-6 fw-bold"> {{task.description}}</td>
                         {% for dat in datumok%}
                         {% if task.task_time == dat|join("-")%}
+                        <!-- {{dat.0}}/{{dat.1}}/{{dat.2}} -->
                         <td class="fs-6 fw-bold" style="text-align: center;"><a class="link-dark" href="{{dat.0}}/{{dat.1}}/{{dat.2}}">{{task.task_time}}</a></td>
                         {%endif%}
                         {%endfor%}

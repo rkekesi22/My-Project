@@ -271,10 +271,9 @@ def calendar():
     if this_month is False:
         abort(404)
     months_name = months[1:]
-    href = f'/{year}/{month}/'
+    href = f'{year}/{month}/'
 
     user_task = db.session.query(Tasks).filter(Tasks.user_id == current_user.id).all()
-
 
 
     return render_template('calendar.html', user = current_user, months_name=months_name, months=this_month[0], le=this_month[1],
@@ -375,11 +374,22 @@ def day_view():
     value= day1(int(year), int(month), int(day))
     print(value)
 
-    user_task = db.session.query(Tasks).filter(Tasks.task_time == f"{year}-{month}-{day}"). \
+
+    if len(day) == 1:
+        day = "0" + day
+
+    if len(month) == 1:
+        month = "0" + month
+
+    print(day)
+    print(month)
+
+
+    user_task = db.session.query(Tasks).filter(Tasks.task_time == f"{year}-{month}-{day}").\
         filter(Tasks.user_id == current_user.id).all()
 
-    # for i in user_task:
-    #     print(i.task_time)
+
+    print(user_task)
 
     return render_template('day.html', user = current_user,value=value, month=month, tasks = user_task)
 
@@ -552,17 +562,12 @@ def stoper(task_id):
             actual_hour = time.localtime().tm_hour
             actual_min = time.localtime().tm_min
 
-            actual_day = today_date.day
-            actual_month = today_date.month
-
             ido = task.mert_ido.split("-")
             hour = int(ido[0])
             min = int(ido[1])
 
             actual_hour =actual_hour - hour
             actual_min = actual_min - min
-            print(actual_hour)
-            print(actual_min)
 
             if actual_hour == 0 and actual_min == 0:
                 task.mert_ido = f'{actual_min} perc'
