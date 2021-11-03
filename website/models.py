@@ -15,7 +15,7 @@ class User(db.Model, UserMixin):
 
 class Projects(db.Model):
     project_id = db.Column(db.Integer, primary_key=True)
-    project_name = db.Column(db.String(20))
+    project_name = db.Column(db.String(60))
     active = db.Column(db.Boolean)
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'))
     tasks = db.relationship('Tasks')
