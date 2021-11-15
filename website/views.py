@@ -33,6 +33,12 @@ def home():
     date_task = datetime.date(year=year, month=month, day=day)
     this_month = one_month(month, year)
 
+    if len(str(day)) == 1:
+        day = "0" + str(day)
+
+    if len(str(month)) == 1:
+        month = "0" + str(month)
+
     user_task = db.session.query(Tasks).filter(Tasks.task_time == f"{year}-{month}-{day}").filter(Tasks.status == True).\
         filter(Tasks.user_id == current_user.id).all()
 
